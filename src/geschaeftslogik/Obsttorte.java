@@ -23,7 +23,6 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte{
     private final String sorteZwei;
     private int fachnummer;
 
-
     private LocalDateTime einfuegedatum;
 
 
@@ -90,6 +89,9 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte{
     @Override
     public void setEinfuegedatum(LocalDateTime einfuegedatum) {
         this.einfuegedatum = einfuegedatum;
+    }
+    public LocalDateTime getEinfuegedatum() {
+        return einfuegedatum;
     }
 
 }

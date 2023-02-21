@@ -77,9 +77,12 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen{
         this.einfuegedatum = einfuegedatum;
     }
 
-
     @Override
     public String getObstsorte() {
         return sorte;
+    }
+
+    public LocalDateTime getEinfuegedatum() {
+        return einfuegedatum;
     }
 }

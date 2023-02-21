@@ -20,6 +20,7 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen {
     private final Collection<Allergen> allergene;
     private final String sorte;
     private int fachnummer;
+
     private LocalDateTime einfuegedatum;
 
     public Kremkuchen(Hersteller hersteller, BigDecimal preis, int naehrwert, Duration haltbarkeit, Collection<Allergen> allergene, String sorte) {
@@ -69,6 +70,10 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen {
     @Override
     public int getFachnummer() {
         return fachnummer;
+    }
+
+    public LocalDateTime getEinfuegedatum() {
+        return einfuegedatum;
     }
 
     @Override
