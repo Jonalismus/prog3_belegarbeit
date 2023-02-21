@@ -1,7 +1,8 @@
 package geschaeftslogik;
 
 import vertrag.Hersteller;
-import vertrag.Kuchen;
+import vertrag.Verkaufsobjekt;
+
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +14,10 @@ public class Model {
     public List<Hersteller> getHerstellerListe() {
         return herstellerListe;
     }
-    private final List<Kuchen> kuchenListe;
+    private final List<Verkaufsobjekt> kuchenListe;
+    public List<Verkaufsobjekt> getKuchenListe() { return kuchenListe;
+    }
+
 
     int kapazitaet;
 
@@ -41,7 +45,7 @@ public class Model {
     /*
     Methode zum Einfuegen von Kuchen
      */
-    public boolean verkaufsObjektEinfuegen(Kuchen kuchen) {
+    public boolean verkaufsObjektEinfuegen(Verkaufsobjekt verkaufsobjekt) {
         // Prüfen, ob die Gesamtkapazität nicht überschritten wird
         if (kuchenListe.size() >= kapazitaet) {
             return false;
@@ -52,16 +56,16 @@ public class Model {
             return false;
         }
         for (Hersteller h : herstellerListe) {
-            if (h.equals(kuchen.getHersteller())) {
+            if (h.equals(verkaufsobjekt.getHersteller())) {
                 // Fachnummer vergeben
-                kuchen.setFachnummer(kuchenListe.size() + 1);
+                verkaufsobjekt.setFachnummer(kuchenListe.size() + 1);
 
                 // Einfuegedatum vergeben
                 LocalDateTime date = LocalDateTime.now();
-                kuchen.setEinfuegedatum(date);
+                verkaufsobjekt.setEinfuegedatum(date);
 
                 // Kuchen in die Liste einfuegen
-                return kuchenListe.add(kuchen);
+                return kuchenListe.add(verkaufsobjekt);
             }
         }
         return false;
