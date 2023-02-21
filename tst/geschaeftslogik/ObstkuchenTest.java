@@ -6,8 +6,11 @@ import vertrag.Allergen;
 
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,10 +66,13 @@ class ObstkuchenTest {
         assertEquals(preis, testObstkuchen.getPreis());
     }
 
-    // Testet die getInspektionsdatum Methode todo
+    // Testet die getInspektionsdatum und setInspektions Methode
     @Test
     void getInspektionsdatum() {
-        fail();
+        LocalDate localDate = LocalDate.now();
+        Date inspektion = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        testObstkuchen.setInspektionsdatum(inspektion);
+        assertEquals(inspektion, testObstkuchen.getInspektionsdatum());
     }
 
     // Testet die getFachnummer Methode
@@ -106,5 +112,11 @@ class ObstkuchenTest {
     @Test
     void getObstsorte() {
         assertEquals("Erdbeere", testObstkuchen.getObstsorte());
+    }
+
+    // Testet ob der Kuchentyp als String zurueck gegeben wird
+    @Test
+    public void testGetKuchenTyp() {
+        assertEquals("Obstkuchen", testObstkuchen.getTyp());
     }
 }

@@ -24,6 +24,7 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte{
     private int fachnummer;
 
     private LocalDateTime einfuegedatum;
+    private Date inspektionsdatum;
 
 
     public Obsttorte(Hersteller hersteller, BigDecimal preis, int naehrwert, Duration haltbarkeit, Collection<Allergen> allergene, String sorteEins, String sorteZwei) {
@@ -62,6 +63,11 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte{
     }
 
     @Override
+    public String getTyp() {
+        return "Obsttorte";
+    }
+
+    @Override
     public String getObstsorte() {
         return sorteEins;
     }
@@ -73,7 +79,12 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte{
 
     @Override
     public Date getInspektionsdatum() {
-        return null;
+        return inspektionsdatum;
+    }
+
+    @Override
+    public void setInspektionsdatum(Date inspektionsdatum) {
+        this.inspektionsdatum = inspektionsdatum;
     }
 
     @Override

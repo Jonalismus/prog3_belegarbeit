@@ -16,4 +16,14 @@ class HerstellerTest {
         Hersteller hersteller = new Hersteller("Hersteller XYZ");
         assertEquals("Hersteller XYZ", hersteller.getName());
     }
+
+    // Test zum ueberpruefen der getter und setter Methode zur Anzahl der Kuchen
+    @Test
+    void testGetterUndSetterAnzahlKuchen(){
+        Hersteller hersteller = new Hersteller("Hersteller XYZ");
+        hersteller.setAnzahlKuchen(2);
+        assertEquals(2, hersteller.getAnzahlKuchen());
+    }
+
+
 }

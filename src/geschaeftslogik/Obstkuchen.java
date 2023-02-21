@@ -21,6 +21,7 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen{
     private final String sorte;
     private int fachnummer;
     private LocalDateTime einfuegedatum;
+    private Date inspektionsdatum;
 
 
     public Obstkuchen(Hersteller hersteller, BigDecimal preis, int naehrwert, Duration haltbarkeit, Collection<Allergen> allergene, String sorte) {
@@ -53,13 +54,23 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen{
     }
 
     @Override
+    public String getTyp() {
+        return "Obstkuchen";
+    }
+
+    @Override
     public BigDecimal getPreis() {
         return preis;
     }
 
     @Override
     public Date getInspektionsdatum() {
-        return null;
+        return inspektionsdatum;
+    }
+
+    @Override
+    public void setInspektionsdatum(Date inspektionsdatum) {
+        this.inspektionsdatum = inspektionsdatum;
     }
 
     @Override

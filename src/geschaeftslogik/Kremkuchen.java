@@ -21,6 +21,7 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen {
     private final String sorte;
     private int fachnummer;
 
+    private Date inspektionsdatum;
     private LocalDateTime einfuegedatum;
 
     public Kremkuchen(Hersteller hersteller, BigDecimal preis, int naehrwert, Duration haltbarkeit, Collection<Allergen> allergene, String sorte) {
@@ -58,13 +59,23 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen {
     }
 
     @Override
+    public String getTyp() {
+        return "Kremkuchen";
+    }
+
+    @Override
     public BigDecimal getPreis() {
         return preis;
     }
 
     @Override
     public Date getInspektionsdatum() {
-        return null;
+        return inspektionsdatum;
+    }
+
+    @Override
+    public void setInspektionsdatum(Date inspektionsdatum) {
+        this.inspektionsdatum = inspektionsdatum;
     }
 
     @Override
