@@ -1,8 +1,10 @@
 package geschaeftslogik;
 
+import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -109,6 +111,31 @@ public class Model {
     }
 
     // Abruf aller vorhandenen oder nicht vorhandenen Allergene im Automaten
+    public List<Allergen> allergeneAbrufen(boolean vorhanden) {
+        List<Allergen> alleAllergene = Arrays.asList(Allergen.values());
+        for (Verkaufsobjekt verkaufsobjekt : verkaufobjektListe) {
+            for (Allergen allergen : verkaufsobjekt.getAllergene()) {
+                if (!alleAllergene.contains(allergen)) {
+                    alleAllergene.add(allergen);
+                }
+            }
+        }
+
+        List<Allergen> ergebnisListe = new LinkedList<>();
+        for (Allergen allergen : alleAllergene) {
+            boolean istVorhanden = false;
+            for (Verkaufsobjekt verkaufsobjekt : verkaufobjektListe) {
+                if (verkaufsobjekt.getAllergene().contains(allergen)) {
+                    istVorhanden = true;
+                    break;
+                }
+            }
+            if (istVorhanden == vorhanden) {
+                ergebnisListe.add(allergen);
+            }
+        }
+        return ergebnisListe;
+    }
 
 
     //Setzen des Datums der letzten Uberpruefung (inspektionsdatum)
@@ -132,5 +159,20 @@ public class Model {
         }
         return false;
     }
+
+    // Entfernen eine Kuchens, wenn Loeschen Erfolgreich, werden die Fachnummer neu vergeben
+    public boolean verkaufsObjektLoeschen(int fachnummer) {
+        for (Verkaufsobjekt v : verkaufobjektListe) {
+            if (v.getFachnummer() == fachnummer) {
+                verkaufobjektListe.remove(v);
+                for(int i = 0; i < verkaufobjektListe.size(); i++){
+                    verkaufobjektListe.get(i).setFachnummer(i+1);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

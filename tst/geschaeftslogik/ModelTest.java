@@ -9,12 +9,12 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static vertrag.Allergen.*;
 
 class ModelTest {
 
@@ -32,7 +32,7 @@ class ModelTest {
         preis = new BigDecimal("3.20");
         naherwerte = 123;
         haltbarkeit = Duration.ofDays(3);
-        allergens = List.of(Allergen.Erdnuss);
+        allergens = List.of(Erdnuss);
         sorte = "Butter";
         sorteZwei = "Erdbeere";
     }
@@ -374,7 +374,7 @@ class ModelTest {
     void testObsttorteAbrufen(){
         Model model = new Model(10);
 
-        // Erstellen von Mock-Objekten
+        // Erstellen von Kuchen-Objekten
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Obstkuchen testObstkuchen = new Obstkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Obsttorte testObsttorte = new Obsttorte(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte, sorteZwei);
@@ -422,6 +422,81 @@ class ModelTest {
         when(herstellerMock.getName()).thenReturn("herstellerMock");
         model.getHerstellerListe().add(herstellerMock);
         assertFalse(model.herstellerLoeschen("hersteller"));
+    }
+
+    //Test erfolgreiches loeschen eines Kuchens
+    @Test
+    void testloeschenEinesKuchens(){
+        Model model = new Model(10);
+        Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
+        Kremkuchen testKremkuchenZwei = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
+        testKremkuchen.setFachnummer(1);
+        testKremkuchenZwei.setFachnummer(2);
+        model.getKuchenListe().add(testKremkuchen);
+        model.getKuchenListe().add(testKremkuchenZwei);
+        model.verkaufsObjektLoeschen(1);
+        assertEquals(1,model.getKuchenListe().size());
+    }
+
+    // Test loeschen eines Kuchens klappt nicht, da Fachnummer nicht vergeben
+    @Test
+    void testloeschenEinesKuchensFehlerhaft(){
+        Model model = new Model(10);
+        Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
+        Kremkuchen testKremkuchenZwei = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
+        testKremkuchen.setFachnummer(1);
+        testKremkuchenZwei.setFachnummer(2);
+        model.getKuchenListe().add(testKremkuchen);
+        model.getKuchenListe().add(testKremkuchenZwei);
+        assertFalse(model.verkaufsObjektLoeschen(3));
+    }
+
+    // Test zum Abrufen der enthaltenen Allergene im Automaten
+    @Test
+    void testAlleEnthaltenenAllergeneAnzeigen(){
+        Model model = new Model(10);
+
+        // Erstellen von Mock-Objekten
+        Kremkuchen testKremkuchen = mock(Kremkuchen.class);
+        Obstkuchen testObstkuchen = mock(Obstkuchen.class);
+        Obsttorte testObsttorte = mock(Obsttorte.class);
+
+        // Konfiguration der Mock-Objekte
+        when(testKremkuchen.getAllergene()).thenReturn(Arrays.asList(Erdnuss, Gluten));
+        when(testObstkuchen.getAllergene()).thenReturn(Collections.singleton(Gluten));
+        when(testObsttorte.getAllergene()).thenReturn(Collections.singleton(Sesamsamen));
+
+        // Kuchen in die Liste einfuegen
+        model.getKuchenListe().add(testKremkuchen);
+        model.getKuchenListe().add(testObstkuchen);
+        model.getKuchenListe().add(testObsttorte);
+
+        List<Allergen> res = model.allergeneAbrufen(true);
+        assertEquals(3, res.size());
+    }
+
+    // Test zum Abrufen der nicht enthaltenen Allergene im Automaten
+    @Test
+    void testAlleNichtEnthalteneAllergeneAnzeigen(){
+        Model model = new Model(10);
+
+        // Erstellen von Mock-Objekten
+        Kremkuchen testKremkuchen = mock(Kremkuchen.class);
+        Obstkuchen testObstkuchen = mock(Obstkuchen.class);
+        Obsttorte testObsttorte = mock(Obsttorte.class);
+
+        // Konfiguration der Mock-Objekte
+        when(testKremkuchen.getAllergene()).thenReturn(Arrays.asList(Erdnuss, Gluten));
+        when(testObstkuchen.getAllergene()).thenReturn(Collections.singleton(Gluten));
+        when(testObsttorte.getAllergene()).thenReturn(Collections.singleton(Sesamsamen));
+
+        // Kuchen in die Liste einfuegen
+        model.getKuchenListe().add(testKremkuchen);
+        model.getKuchenListe().add(testObstkuchen);
+        model.getKuchenListe().add(testObsttorte);
+
+        List<Allergen> res = model.allergeneAbrufen(false);
+        assertEquals(1, res.size());
     }
 
 }
