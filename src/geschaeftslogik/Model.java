@@ -4,7 +4,6 @@ import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -112,14 +111,7 @@ public class Model {
 
     // Abruf aller vorhandenen oder nicht vorhandenen Allergene im Automaten
     public List<Allergen> allergeneAbrufen(boolean vorhanden) {
-        List<Allergen> alleAllergene = Arrays.asList(Allergen.values());
-        for (Verkaufsobjekt verkaufsobjekt : verkaufobjektListe) {
-            for (Allergen allergen : verkaufsobjekt.getAllergene()) {
-                if (!alleAllergene.contains(allergen)) {
-                    alleAllergene.add(allergen);
-                }
-            }
-        }
+        Allergen[] alleAllergene = Allergen.values();
 
         List<Allergen> ergebnisListe = new LinkedList<>();
         for (Allergen allergen : alleAllergene) {
