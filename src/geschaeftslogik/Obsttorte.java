@@ -5,6 +5,7 @@ import vertrag.Hersteller;
 import vertrag.Kuchen;
 import vertrag.Verkaufsobjekt;
 
+
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
