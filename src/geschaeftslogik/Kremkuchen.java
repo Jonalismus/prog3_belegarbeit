@@ -96,4 +96,12 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen {
     public void setEinfuegedatum(LocalDateTime einfuegedatum) {
         this.einfuegedatum = einfuegedatum;
     }
+
+
+    public String toString() {
+        LocalDateTime jetzt = LocalDateTime.now();
+        Duration verstrichen = Duration.between(einfuegedatum, jetzt);
+        return "[Kremkuchen] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + haltbarkeit.minus(verstrichen).toDays() + "]";
+    }
+
 }

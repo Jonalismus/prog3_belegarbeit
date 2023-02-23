@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -119,5 +120,30 @@ class KremkuchenTest {
     public void testGetKuchenTyp() {
         assertEquals("Kremkuchen", testKremkuchen.getTyp());
     }
+
+    //Testet die toString Methode, auch bezüglich der verbleibenden Haltbarkeit
+    @Test
+    public void testToString() {
+        // Test Kremkuchen erstellen
+        LocalDateTime jetzt = LocalDateTime.of(2023, 2, 23, 23, 20, 21);
+        LocalDateTime einfuegedatum = LocalDateTime.of(2023, 2, 18, 12, 0, 0);
+        Hersteller hersteller = new Hersteller("Test Hersteller");
+        BigDecimal preis = BigDecimal.valueOf(2.99);
+        int naehrwert = 250;
+        Duration haltbarkeit = Duration.ofDays(10);
+        Collection<Allergen> allergene = Arrays.asList(Allergen.Gluten, Allergen.Haselnuss);
+        String sorte = "Schoko";
+        Kremkuchen kremkuchen = new Kremkuchen(hersteller, preis, naehrwert, haltbarkeit, allergene, sorte);
+        kremkuchen.setFachnummer(1);
+        kremkuchen.setInspektionsdatum(new Date());
+        kremkuchen.setEinfuegedatum(einfuegedatum);
+
+        Duration verstrichen = Duration.between(einfuegedatum, jetzt);
+        long verbleibendeTage = haltbarkeit.minus(verstrichen).toDays();
+        String erwartetAusgabe = "[Kremkuchen] [Fachnummer: 1] [Inspektionsdatum: " + kremkuchen.getInspektionsdatum() + "] [verbleibende Haltbarkeit in Tagen: " + verbleibendeTage + "]";
+
+        assertEquals(erwartetAusgabe, kremkuchen.toString());
+    }
+
 
 }

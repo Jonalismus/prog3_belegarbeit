@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -118,5 +119,29 @@ class ObstkuchenTest {
     @Test
     public void testGetKuchenTyp() {
         assertEquals("Obstkuchen", testObstkuchen.getTyp());
+    }
+
+    //Testet die toString Methode, auch bezüglich der verbleibenden Haltbarkeit
+    @Test
+    public void testToString() {
+        // Test Obstkuchen erstellen
+        LocalDateTime jetzt = LocalDateTime.of(2023, 2, 23, 23, 20, 21);
+        LocalDateTime einfuegedatum = LocalDateTime.of(2023, 2, 18, 12, 0, 0);
+        Hersteller hersteller = new Hersteller("Test Hersteller");
+        BigDecimal preis = BigDecimal.valueOf(2.99);
+        int naehrwert = 250;
+        Duration haltbarkeit = Duration.ofDays(10);
+        Collection<Allergen> allergene = Arrays.asList(Allergen.Gluten, Allergen.Haselnuss);
+        String sorte = "Schoko";
+        Obstkuchen obstkuchen = new Obstkuchen(hersteller, preis, naehrwert, haltbarkeit, allergene, sorte);
+        obstkuchen.setFachnummer(1);
+        obstkuchen.setInspektionsdatum(new Date());
+        obstkuchen.setEinfuegedatum(einfuegedatum);
+
+        Duration verstrichen = Duration.between(einfuegedatum, jetzt);
+        long verbleibendeTage = haltbarkeit.minus(verstrichen).toDays();
+        String erwartetAusgabe = "[Obstkuchen] [Fachnummer: 1] [Inspektionsdatum: " + obstkuchen.getInspektionsdatum() + "] [verbleibende Haltbarkeit in Tagen: " + verbleibendeTage + "]";
+
+        assertEquals(erwartetAusgabe, obstkuchen.toString());
     }
 }

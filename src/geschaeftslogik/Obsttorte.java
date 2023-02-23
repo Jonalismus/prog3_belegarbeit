@@ -106,4 +106,10 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte{
         return einfuegedatum;
     }
 
+    public String toString() {
+        LocalDateTime jetzt = LocalDateTime.now();
+        Duration verstricheneZeit = Duration.between(einfuegedatum, jetzt);
+        return "[Obsttorte] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + haltbarkeit.minus(verstricheneZeit).toDays() + "]";
+    }
+
 }

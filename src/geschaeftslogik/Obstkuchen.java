@@ -96,4 +96,10 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen{
     public LocalDateTime getEinfuegedatum() {
         return einfuegedatum;
     }
+
+    public String toString() {
+        LocalDateTime jetzt = LocalDateTime.now();
+        Duration verstricheneZeit = Duration.between(einfuegedatum, jetzt);
+        return "[Obstkuchen] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + haltbarkeit.minus(verstricheneZeit).toDays() + "]";
+    }
 }
