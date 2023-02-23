@@ -25,5 +25,21 @@ class HerstellerTest {
         assertEquals(2, hersteller.getAnzahlKuchen());
     }
 
+    // Test zum ueberprüfen, der Equals Methode. Sollte True zurueck liefen.
+    @Test
+    public void testEquals() {
+        Hersteller hersteller1 = new Hersteller("Hersteller 1");
+        Hersteller hersteller2 = new Hersteller("Hersteller 1");
+        assertEquals(hersteller1, hersteller2);
+    }
+
+    // Test zum ueberprüfen, der Equals Methode. Sollte false zurueck liefen.
+    @Test
+    public void testEqualsFalse() {
+        Hersteller hersteller1 = new Hersteller("Hersteller 1");
+        Hersteller hersteller2 = new Hersteller("Hersteller 2");
+        assertNotEquals(hersteller1, hersteller2);
+    }
+
 
 }
