@@ -18,14 +18,16 @@ import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEvent;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
 import geschaeftslogik.*;
 import vertrag.Allergen;
+import vertrag.Verkaufsobjekt;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
-public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinfuegenEventListener, HerstellerLoeschenEventListener, KuchenLoeschenEventListener, InspektionsEventListener, AllergeneAnzeigenEventListener, KuchenAnzeigenEventListener, HerstellerAnzeigenEventListener {
+public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinfuegenEventListener, HerstellerLoeschenEventListener, KuchenLoeschenEventListener, InspektionsEventListener, AllergeneAnzeigenEventListener, KuchenAnzeigenEventListener, HerstellerAnzeigenEventListener{
 
 
     private final Model model;
@@ -43,9 +45,28 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
     public void onEinfuegenEvent(KuchenEinfuegenEvent kuchenEinfuegenEvent) {
 
         Hersteller hersteller = new Hersteller(kuchenEinfuegenEvent.getHersteller());
-        BigDecimal preis = new BigDecimal(kuchenEinfuegenEvent.getPreis().replace(",", "."));
-        int naehrwert = Integer.parseInt(kuchenEinfuegenEvent.getNaehrwert());
-        Duration haltbarkeit = Duration.ofDays(Integer.parseInt(kuchenEinfuegenEvent.getHaltbarkeit()));
+
+        BigDecimal preis;
+        try {
+            preis = new BigDecimal(kuchenEinfuegenEvent.getPreis().replace(",", "."));
+        } catch (IllegalArgumentException | ArithmeticException e) {
+            return;
+        }
+
+        int naehrwert;
+        try {
+            naehrwert = Integer.parseInt(kuchenEinfuegenEvent.getNaehrwert());
+        } catch (NumberFormatException e) {
+            return;
+        }
+
+        Duration haltbarkeit;
+        try {
+            haltbarkeit = Duration.ofDays(Integer.parseInt(kuchenEinfuegenEvent.getHaltbarkeit()));
+        } catch (NumberFormatException e) {
+            return;
+        }
+
         String[] allergenStrings = kuchenEinfuegenEvent.getAllergene().split(",");
         Collection<Allergen> allergene = new ArrayList<>();
         for (String allergenString : allergenStrings) {
@@ -90,20 +111,34 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
 
     @Override
     public void onAllergeneAnzeigenEvent(AllergeneAnzeigenEvent event) {
-        if(event.getAllergene().equals("enthalten i")){
-            model.allergeneAbrufen(true);
-        } else if (event.getAllergene().equals("enthalten e")){
-            model.allergeneAbrufen(false);
+        if(event.getAllergene().equals("allergene i")){
+            List<Allergen> allergene = model.allergeneAbrufen(true);
+            for(Allergen a : allergene){
+                System.out.println(a.toString());
+            }
+        } else if (event.getAllergene().equals("allergene e")){
+            List<Allergen> allergene = model.allergeneAbrufen(false);
+            for(Allergen a : allergene){
+                System.out.println(a.toString());
+            }
         }
     }
 
     @Override
     public void onHerstellerAnzeigenEvent(HerstellerAnzeigenEvent event) {
-        model.abrufenDerHersteller();
+        List<Hersteller> res = model.abrufenDerHersteller();
+        for(Hersteller h : res){
+            System.out.println(h);
+        }
     }
 
     @Override
     public void onKuchenAnzeigenEvent(KuchenAnzeigenEvent event) {
-        model.kuchenAbrufen(event.getKuchenTyp());
+        List<Verkaufsobjekt> res = model.kuchenAbrufen(event.getKuchenTyp());
+        for(Verkaufsobjekt re : res){
+            System.out.println(re);
+        }
     }
+
+
 }

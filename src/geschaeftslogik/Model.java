@@ -1,5 +1,6 @@
 package geschaeftslogik;
 
+import cli.observer.Subject;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 import java.time.LocalDateTime;
@@ -8,7 +9,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Model {
+
+public class Model extends Subject {
 
 
     private final List<Hersteller> herstellerListe;
@@ -23,6 +25,9 @@ public class Model {
         return verkaufobjektListe;
     }
 
+
+    public int getKapazitaet() {return kapazitaet;
+    }
 
     int kapazitaet;
 
@@ -39,7 +44,7 @@ public class Model {
      */
     public boolean herstellerEinfuegen(Hersteller hersteller) {
         for (Hersteller h : herstellerListe) {
-            if (h.getName().equals(hersteller.getName())) {
+            if (h.getName().equals(hersteller.getName()) || hersteller.getName().equals("")) {
                 return false;
             }
         }
@@ -51,7 +56,7 @@ public class Model {
     Methode zum Einfuegen von Kuchen
      */
     public boolean verkaufsObjektEinfuegen(Verkaufsobjekt verkaufsobjekt) {
-        // Prüfen, ob die Gesamtkapazität nicht überschritten wird
+        // Prüfen, ob die Gesamtkapazitaet nicht überschritten wird
         if (verkaufobjektListe.size() >= kapazitaet) {
             return false;
         }
@@ -70,7 +75,9 @@ public class Model {
                 verkaufsobjekt.setEinfuegedatum(date);
 
                 // Kuchen in die Liste einfuegen
-                return verkaufobjektListe.add(verkaufsobjekt);
+                verkaufobjektListe.add(verkaufsobjekt);
+                notifyObservers();
+                return true;
             }
         }
         return false;
@@ -160,6 +167,7 @@ public class Model {
                 for(int i = 0; i < verkaufobjektListe.size(); i++){
                     verkaufobjektListe.get(i).setFachnummer(i+1);
                 }
+                notifyObservers();
                 return true;
             }
         }

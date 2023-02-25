@@ -21,6 +21,8 @@ import cli.modus.AenderungsModus;
 import cli.modus.AnzeigeModus;
 import cli.modus.EinfuegenModus;
 import cli.modus.LoeschModus;
+import cli.observer.AllergenObserver;
+import cli.observer.KapazitaetsObserver;
 import geschaeftslogik.Model;
 
 public class CLImain {
@@ -45,6 +47,12 @@ public class CLImain {
         }
         if (kapazitaet > 0) {
             Model model = new Model(kapazitaet);
+            //Observer beim Model registrieren
+            KapazitaetsObserver kapazitaetsObserver = new KapazitaetsObserver(model);
+            model.add(kapazitaetsObserver);
+            AllergenObserver allergenObserver = new AllergenObserver(model);
+            model.add(allergenObserver);
+
             //Kuchen Einfuegen Event
             KuchenEinfuegenEventHandler addHandlerKuchen = new KuchenEinfuegenEventHandler();
             KuchenEinfuegenEventListener addListenerKuchen = new AddListener(model);

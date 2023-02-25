@@ -22,6 +22,8 @@ public class AnzeigeModus {
         this.addHandlerAllergeneAnzeigen = addHandlerAllergeneAnzeigen;
     }
 
+
+    // Bei falscher Eingabe wird nicht in die HauptCli gewechselt
     public void start() {
         Scanner scanner = new Scanner(System.in);
         String input;

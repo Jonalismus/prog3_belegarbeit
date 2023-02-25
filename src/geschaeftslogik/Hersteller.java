@@ -24,6 +24,11 @@ public class Hersteller implements vertrag.Hersteller {
         this.anzahlKuchen = anzahlKuchen;
     }
 
+    //Test schreiben todo
+    public String toString() {
+        return "[" + name + "] [Anzahl Kuchen: " + anzahlKuchen + "]";
+    }
+
     /* Code copy
     Quelle: https://falconbyte.net/java-objekte-vergleichen.php#:~:text=Der%20Vergleichsoperator%20%3D%3D%20testet%2C%20ob,die%20Methode%20equals()%20eingesetzt.
      */

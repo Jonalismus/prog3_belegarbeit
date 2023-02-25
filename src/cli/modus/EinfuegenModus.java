@@ -25,15 +25,16 @@ public class EinfuegenModus {
 
         String[] commandParts = input.split(" ");
 
-        if (commandParts.length < 4) {
+        if (commandParts.length <= 4) {
             // Hersteller einfügen
-            HerstellerEinfuegenEvent event = new HerstellerEinfuegenEvent(this, commandParts[0]);
+            String herstellerName = String.join(" ", commandParts);
+            HerstellerEinfuegenEvent event = new HerstellerEinfuegenEvent(this,herstellerName);
             if (null != this.addHandlerHersteller) {
                 this.addHandlerHersteller.handle(event);
             }
-        } else {
+        } else if(commandParts.length == 7 || commandParts.length == 8) {
             // Kuchen einfügen
-            KuchenEinfuegenEvent event2 = new KuchenEinfuegenEvent(this, commandParts[0], commandParts[1], commandParts[2], commandParts[3], commandParts[4], commandParts[5], commandParts.length > 6 ? commandParts[6] : null);
+            KuchenEinfuegenEvent event2 = new KuchenEinfuegenEvent(this, commandParts[0], commandParts[1], commandParts[2], commandParts[3], commandParts[4], commandParts[5], commandParts[6]);
             if (null != this.addHandlerKuchen) {
                 this.addHandlerKuchen.handle(event2);
             }
