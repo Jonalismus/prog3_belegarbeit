@@ -3,6 +3,8 @@ package geschaeftslogik;
 import cli.observer.Subject;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
+
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -42,7 +44,7 @@ public class Model extends Subject {
     Anlegen von Herstellern; dabei muss sichergestellt sein, dass kein Name
     mehr als einmal vorkommt
      */
-    public boolean herstellerEinfuegen(Hersteller hersteller) {
+    public synchronized boolean herstellerEinfuegen(Hersteller hersteller) {
         for (Hersteller h : herstellerListe) {
             if (h.getName().equals(hersteller.getName()) || hersteller.getName().equals("")) {
                 return false;
@@ -55,7 +57,7 @@ public class Model extends Subject {
     /*
     Methode zum Einfuegen von Kuchen
      */
-    public boolean verkaufsObjektEinfuegen(Verkaufsobjekt verkaufsobjekt) {
+    public synchronized boolean  verkaufsObjektEinfuegen(Verkaufsobjekt verkaufsobjekt) {
         // Prüfen, ob die Gesamtkapazitaet nicht überschritten wird
         if (verkaufobjektListe.size() >= kapazitaet) {
             return false;
@@ -84,7 +86,7 @@ public class Model extends Subject {
     }
 
     // Abruf aller Hersteller mit der Anzahl ihrer Kuchen
-    public List<geschaeftslogik.Hersteller> abrufenDerHersteller() {
+    public synchronized List<geschaeftslogik.Hersteller> abrufenDerHersteller() {
         int count = 0;
         List<Verkaufsobjekt> listeKuchen = new LinkedList<>(verkaufobjektListe);
         for (Hersteller h : herstellerListe) {
@@ -103,13 +105,22 @@ public class Model extends Subject {
     Gibt aus, welche Kuchen im Automaten sind. Wird ein Kuchentyp angegeben, werden nur Kuchen von diesen
     Kuchentypen aufgelistet
      */
-    public List<Verkaufsobjekt> kuchenAbrufen(String kuchentyp) {
-        if (kuchentyp == null || kuchentyp.equals("Kuchen") || kuchentyp.equals("kuchen")) {
-            return new LinkedList<>(verkaufobjektListe);
-        }
+    public synchronized List<Verkaufsobjekt> kuchenAbrufen(String kuchentyp) {
         List<Verkaufsobjekt> ergebnisListe = new LinkedList<>();
+        if (kuchentyp == null || kuchentyp.equals("Kuchen") || kuchentyp.equals("kuchen")) {
+            for(Verkaufsobjekt verkaufsobjekt : verkaufobjektListe){
+                LocalDateTime jetzt = LocalDateTime.now();
+                Duration verstrichen = Duration.between(verkaufsobjekt.getEinfuegedatum(), jetzt);
+                verkaufsobjekt.setVerbleibendeHaltbarkeit(verkaufsobjekt.getHaltbarkeit().minus(verstrichen).toDays());
+                ergebnisListe.add(verkaufsobjekt);
+            }
+            return ergebnisListe;
+        }
         for (Verkaufsobjekt verkaufsobjekt : verkaufobjektListe) {
             if (verkaufsobjekt.getTyp().equals(kuchentyp.substring(0, 1).toUpperCase() + kuchentyp.substring(1).toLowerCase())) {
+                LocalDateTime jetzt = LocalDateTime.now();
+                Duration verstrichen = Duration.between(verkaufsobjekt.getEinfuegedatum(), jetzt);
+                verkaufsobjekt.setVerbleibendeHaltbarkeit(verkaufsobjekt.getHaltbarkeit().minus(verstrichen).toDays());
                 ergebnisListe.add(verkaufsobjekt);
             }
         }
@@ -117,7 +128,7 @@ public class Model extends Subject {
     }
 
     // Abruf aller vorhandenen oder nicht vorhandenen Allergene im Automaten
-    public List<Allergen> allergeneAbrufen(boolean vorhanden) {
+    public synchronized List<Allergen> allergeneAbrufen(boolean vorhanden) {
         Allergen[] alleAllergene = Allergen.values();
 
         List<Allergen> ergebnisListe = new LinkedList<>();
@@ -138,7 +149,7 @@ public class Model extends Subject {
 
 
     //Setzen des Datums der letzten Uberpruefung (inspektionsdatum)
-    public void ispektionsDatumSetzen(int fachnummer){
+    public synchronized void ispektionsDatumSetzen(int fachnummer){
         for(Verkaufsobjekt verkaufsobjekt : verkaufobjektListe){
             if(verkaufsobjekt.getFachnummer() == fachnummer){
                 LocalDateTime localDateTime = LocalDateTime.now().withSecond(0).withNano(0);
@@ -149,7 +160,7 @@ public class Model extends Subject {
     }
 
     // Entfernen eines Herstellers
-    public boolean herstellerLoeschen(String name) {
+    public synchronized boolean herstellerLoeschen(String name) {
         for (Hersteller h : herstellerListe) {
             if (h.getName().equals(name)) {
                 herstellerListe.remove(h);
@@ -160,7 +171,7 @@ public class Model extends Subject {
     }
 
     // Entfernen eine Kuchens, wenn Loeschen Erfolgreich, werden die Fachnummer neu vergeben
-    public boolean verkaufsObjektLoeschen(int fachnummer) {
+    public synchronized boolean verkaufsObjektLoeschen(int fachnummer) {
         for (Verkaufsobjekt v : verkaufobjektListe) {
             if (v.getFachnummer() == fachnummer) {
                 verkaufobjektListe.remove(v);

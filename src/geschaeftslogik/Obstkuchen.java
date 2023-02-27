@@ -22,6 +22,7 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen{
     private int fachnummer;
     private LocalDateTime einfuegedatum;
     private Date inspektionsdatum;
+    private long verbleibendeHaltbarkeit;
 
 
     public Obstkuchen(Hersteller hersteller, BigDecimal preis, int naehrwert, Duration haltbarkeit, Collection<Allergen> allergene, String sorte) {
@@ -51,6 +52,11 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen{
     @Override
     public Duration getHaltbarkeit() {
         return haltbarkeit;
+    }
+
+    @Override
+    public void setVerbleibendeHaltbarkeit(long verbleibendeHaltbarkeit) {
+        this.verbleibendeHaltbarkeit = verbleibendeHaltbarkeit;
     }
 
     @Override
@@ -98,8 +104,6 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen{
     }
 
     public String toString() {
-        LocalDateTime jetzt = LocalDateTime.now();
-        Duration verstricheneZeit = Duration.between(einfuegedatum, jetzt);
-        return "[Obstkuchen] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + haltbarkeit.minus(verstricheneZeit).toDays() + "]";
+        return "[Obstkuchen] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + verbleibendeHaltbarkeit + "]";
     }
 }

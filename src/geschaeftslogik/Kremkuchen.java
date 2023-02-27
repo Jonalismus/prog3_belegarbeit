@@ -24,6 +24,13 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen {
     private Date inspektionsdatum;
     private LocalDateTime einfuegedatum;
 
+
+    public void setVerbleibendeHaltbarkeit(long verbleibendeHaltbarkeit) {
+        this.verbleibendeHaltbarkeit = verbleibendeHaltbarkeit;
+    }
+
+    private long verbleibendeHaltbarkeit;
+
     public Kremkuchen(Hersteller hersteller, BigDecimal preis, int naehrwert, Duration haltbarkeit, Collection<Allergen> allergene, String sorte) {
         this.hersteller = hersteller;
         this.preis = preis;
@@ -99,9 +106,7 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen {
 
 
     public String toString() {
-        LocalDateTime jetzt = LocalDateTime.now();
-        Duration verstrichen = Duration.between(einfuegedatum, jetzt);
-        return "[Kremkuchen] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + haltbarkeit.minus(verstrichen).toDays() + "]";
+        return "[Kremkuchen] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + verbleibendeHaltbarkeit + "]";
     }
 
 }
