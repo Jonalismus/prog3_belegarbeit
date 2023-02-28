@@ -1,4 +1,4 @@
-package cli.observer;
+package observer;
 
 import geschaeftslogik.Model;
 
@@ -11,7 +11,7 @@ public class KapazitaetsObserver implements Observer {
     }
 
     @Override
-    public void update(Subject subject) {
+    public synchronized void update(Subject subject) {
         if (subject instanceof Model) {
             int benutzeKapazitaet = this.model.getKuchenListe().size();
             double percentage = (double) benutzeKapazitaet / this.model.getKapazitaet() * 100;

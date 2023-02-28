@@ -1,6 +1,6 @@
 package geschaeftslogik;
 
-import cli.observer.Subject;
+import observer.Subject;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 
@@ -12,8 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class Model extends Subject {
 
+public class Model extends Subject {
 
     private final List<Hersteller> herstellerListe;
 
@@ -67,17 +67,20 @@ public class Model extends Subject {
         if (herstellerListe.size() == 0) {
             return false;
         }
+
         for (Hersteller h : herstellerListe) {
             if (h.equals(verkaufsobjekt.getHersteller())) {
                 // Fachnummer vergeben
-                verkaufsobjekt.setFachnummer(verkaufobjektListe.size() + 1);
-
+                int fachnummer = verkaufobjektListe.size() + 1;
+                verkaufsobjekt.setFachnummer(fachnummer);
                 // Einfuegedatum vergeben
                 LocalDateTime date = LocalDateTime.now();
                 verkaufsobjekt.setEinfuegedatum(date);
 
+
                 // Kuchen in die Liste einfuegen
                 verkaufobjektListe.add(verkaufsobjekt);
+                inspektionsDatumSetzen(fachnummer);
                 notifyObservers();
                 return true;
             }
@@ -149,10 +152,10 @@ public class Model extends Subject {
 
 
     //Setzen des Datums der letzten Uberpruefung (inspektionsdatum)
-    public synchronized void ispektionsDatumSetzen(int fachnummer){
+    public synchronized void inspektionsDatumSetzen(int fachnummer){
         for(Verkaufsobjekt verkaufsobjekt : verkaufobjektListe){
             if(verkaufsobjekt.getFachnummer() == fachnummer){
-                LocalDateTime localDateTime = LocalDateTime.now().withSecond(0).withNano(0);
+                LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
                 Date inspektion = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
                 verkaufsobjekt.setInspektionsdatum(inspektion);
             }

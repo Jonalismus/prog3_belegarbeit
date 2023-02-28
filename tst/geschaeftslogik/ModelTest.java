@@ -321,6 +321,13 @@ class ModelTest {
         Obstkuchen testObstkuchen = mock(Obstkuchen.class);
         Obsttorte testObsttorte = mock(Obsttorte.class);
 
+        LocalDateTime mockTime = mock(LocalDateTime.class);
+
+        when(testKremkuchen.getEinfuegedatum()).thenReturn(mockTime);
+        when(testObstkuchen.getEinfuegedatum()).thenReturn(mockTime);
+        when(testObsttorte.getEinfuegedatum()).thenReturn(mockTime);
+
+
         // Einfuegen der Kuchen
         model.getKuchenListe().add(testKremkuchen);
         model.getKuchenListe().add(testObstkuchen);
@@ -340,6 +347,10 @@ class ModelTest {
         Obstkuchen testObstkuchen = new Obstkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Obsttorte testObsttorte = new Obsttorte(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte, sorteZwei);
 
+        testKremkuchen.setEinfuegedatum( LocalDateTime.of(2022, 1, 1, 12, 0, 0));
+        testObstkuchen.setEinfuegedatum( LocalDateTime.of(2022, 1, 1, 12, 0, 0));
+        testObsttorte.setEinfuegedatum( LocalDateTime.of(2022, 1, 1, 12, 0, 0));
+
         // Einfuegen der Kuchen (1x Kremkuchen)
         model.getKuchenListe().add(testKremkuchen);
         model.getKuchenListe().add(testObstkuchen);
@@ -358,6 +369,10 @@ class ModelTest {
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Obstkuchen testObstkuchen = new Obstkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Obsttorte testObsttorte = new Obsttorte(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte, sorteZwei);
+
+        testKremkuchen.setEinfuegedatum( LocalDateTime.of(2022, 1, 1, 12, 0, 0));
+        testObstkuchen.setEinfuegedatum( LocalDateTime.of(2022, 1, 1, 12, 0, 0));
+        testObsttorte.setEinfuegedatum( LocalDateTime.of(2022, 1, 1, 12, 0, 0));
 
         // Einfuegen der Kuchen (2x Obstkuchen)
         model.getKuchenListe().add(testKremkuchen);
@@ -379,6 +394,10 @@ class ModelTest {
         Obstkuchen testObstkuchen = new Obstkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Obsttorte testObsttorte = new Obsttorte(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte, sorteZwei);
 
+        testKremkuchen.setEinfuegedatum(LocalDateTime.of(2022, 1, 1, 12, 0, 0));
+        testObstkuchen.setEinfuegedatum(LocalDateTime.of(2022, 1, 1, 12, 0, 0));
+        testObsttorte.setEinfuegedatum(LocalDateTime.of(2022, 1, 1, 12, 0, 0));
+
         // Einfuegen der Kuchen (3x Obsttorte)
         model.getKuchenListe().add(testKremkuchen);
         model.getKuchenListe().add(testObstkuchen);
@@ -398,9 +417,9 @@ class ModelTest {
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         model.getKuchenListe().add(testKremkuchen);
         testKremkuchen.setFachnummer(1);
-        LocalDateTime localDateTime = LocalDateTime.now().withSecond(0).withNano(0);
+        LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
         Date inspektion = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        model.ispektionsDatumSetzen(1);
+        model.inspektionsDatumSetzen(1);
         assertEquals(inspektion, testKremkuchen.getInspektionsdatum());
     }
 

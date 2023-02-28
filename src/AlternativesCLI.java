@@ -19,7 +19,7 @@ import cli.modus.AenderungsModus;
 import cli.modus.AnzeigeModus;
 import cli.modus.EinfuegenModus;
 import cli.modus.LoeschModus;
-import cli.observer.AllergenObserver;
+import observer.AllergenObserver;
 import geschaeftslogik.Model;
 
 public class AlternativesCLI {

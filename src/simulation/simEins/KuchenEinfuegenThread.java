@@ -37,9 +37,8 @@ public class KuchenEinfuegenThread extends Thread{
             String sorte = "Butter";
             String sorteZwei = "Erdbeere";
             Verkaufsobjekt kuchen = random.nextBoolean() ? new Obsttorte(hersteller, preis, naherwerte, haltbarkeit, allergens, sorte, sorteZwei) : new Kremkuchen(hersteller, preis, naherwerte, haltbarkeit, allergens, sorte);
-            if(model.verkaufsObjektEinfuegen(kuchen)){
-                System.out.println(this.getName() + " Kuchen eingefuegt" + kuchen);
-            }
+            System.out.println(this.getName() + " Probiert Kuchen hinzufuegen");
+            model.verkaufsObjektEinfuegen(kuchen);
             try {
                 Thread.sleep(0);
             } catch (InterruptedException e){

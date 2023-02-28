@@ -21,8 +21,8 @@ import cli.modus.AenderungsModus;
 import cli.modus.AnzeigeModus;
 import cli.modus.EinfuegenModus;
 import cli.modus.LoeschModus;
-import cli.observer.AllergenObserver;
-import cli.observer.KapazitaetsObserver;
+import observer.AllergenObserver;
+import observer.KapazitaetsObserver;
 import geschaeftslogik.Model;
 
 public class CLImain {

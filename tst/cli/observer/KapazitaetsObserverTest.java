@@ -25,6 +25,8 @@ import cli.modus.LoeschModus;
 import geschaeftslogik.Hersteller;
 import geschaeftslogik.Kremkuchen;
 import geschaeftslogik.Model;
+import observer.AllergenObserver;
+import observer.KapazitaetsObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import vertrag.Allergen;

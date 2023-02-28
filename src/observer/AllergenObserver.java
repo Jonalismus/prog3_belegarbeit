@@ -1,4 +1,4 @@
-package cli.observer;
+package observer;
 
 import geschaeftslogik.Model;
 import vertrag.Allergen;

@@ -23,8 +23,8 @@ public class KuchenLoeschenThread extends Thread {
                 int index = random.nextInt(kuchenListe.size());
                 Verkaufsobjekt kuchen = kuchenListe.get(index);
                 int fachnummer = kuchen.getFachnummer();
+                System.out.println(this.getName() + " Probiert Kuchen zu loeschen: " + kuchen);
                 model.verkaufsObjektLoeschen(fachnummer);
-                System.out.println(this.getName() + " Kuchen geloescht" + kuchen);
             }
             try {
                 Thread.sleep(0);

@@ -106,7 +106,7 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
     @Override
     public void onInspektionsEvent(InspektionsEvent event) {
         int fachnummer = Integer.parseInt(event.getFachnummer());
-        model.ispektionsDatumSetzen(fachnummer);
+        model.inspektionsDatumSetzen(fachnummer);
     }
 
     @Override
