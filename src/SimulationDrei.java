@@ -49,7 +49,7 @@ public class SimulationDrei {
         executor.scheduleAtFixedRate(() -> {
             lock.lock();
             try {
-                System.out.println("Kuchenautomat Zustand: Kapazität " + model.getKapazitaet() + ", Anzahl Kuchen " + model.getKuchenListe().size());
+                System.out.println("Kuchenautomat Zustand: Kapazitaet " + model.getKapazitaet() + ", Anzahl Kuchen " + model.getKuchenListe().size());
             } finally {
                 lock.unlock();
             }
