@@ -13,7 +13,7 @@ public class KuchenEinfuegenObserver implements Observer{
     }
 
     @Override
-    public synchronized void update(Subject subject) {
+    public void update(Subject subject) {
         if (subject instanceof Model) {
             int aktuelleAnzahlKuchen = model.getKuchenListe().size();
             if (aktuelleAnzahlKuchen > anzahlKuchen) {

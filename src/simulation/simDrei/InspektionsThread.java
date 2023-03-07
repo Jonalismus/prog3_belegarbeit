@@ -1,21 +1,23 @@
-package simulation.simEins;
+package simulation.simDrei;
 
 import geschaeftslogik.Model;
 import vertrag.Verkaufsobjekt;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
-public class KuchenLoeschenThread extends Thread {
+public class InspektionsThread extends Thread{
     private final Model model;
-    private final Random random;
+    private final Random random = new Random();
+    private final Condition condition;
     private final Lock lock;
 
-    public KuchenLoeschenThread(Model model, Lock lock) {
+    public InspektionsThread(Model model, Condition condition, Lock lock) {
         this.model = model;
+        this.condition = condition;
         this.lock = lock;
-        this.random = new Random();
     }
 
     @Override
@@ -26,13 +28,14 @@ public class KuchenLoeschenThread extends Thread {
                 List<Verkaufsobjekt> kuchenListe = model.kuchenAbrufen("kuchen");
                 if (!kuchenListe.isEmpty()) {
                     int index = random.nextInt(kuchenListe.size());
-                    Verkaufsobjekt kuchen = kuchenListe.get(index);
-                    int fachnummer = kuchen.getFachnummer();
-                    System.out.println(this.getName() + " Probiert Kuchen zu loeschen: " + kuchen);
-                    model.verkaufsObjektLoeschen(fachnummer);
+                    System.out.println(this.getName() + " Setzt Inspektionsdatum");
+                    model.inspektionsDatumSetzen(index);
                 } else {
-                    System.out.println("Kuchenliste ist leer " + this.getName() + " kann nichts löschen");
+                    System.out.println(this.getName() + " wartet auf Kuchen, da die Liste leer ist");
+                    condition.await();
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             } finally {
                 lock.unlock();
             }

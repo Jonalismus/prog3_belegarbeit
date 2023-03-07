@@ -7,6 +7,8 @@ import simulation.simEins.KuchenEinfuegenThread;
 import simulation.simEins.KuchenLoeschenThread;
 
 import java.util.Scanner;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class SimulationEins {
 
@@ -15,6 +17,7 @@ public class SimulationEins {
         System.out.println("Bitte geben Sie die Kapazitaet ein:");
         int kapazitaet = scanner.nextInt();
         Model model = new Model(kapazitaet);
+        Lock lock = new ReentrantLock();
 
         KuchenEinfuegenObserver kuchenEinfuegenObserver = new KuchenEinfuegenObserver(model);
         model.add(kuchenEinfuegenObserver);
@@ -24,8 +27,8 @@ public class SimulationEins {
         model.add(kapazitaetsObserver);
 
         model.herstellerEinfuegen(new Hersteller("ThreadHersteller"));
-        KuchenEinfuegenThread einfuegenThread = new KuchenEinfuegenThread(model);
-        KuchenLoeschenThread loeschenThread = new KuchenLoeschenThread(model);
+        KuchenEinfuegenThread einfuegenThread = new KuchenEinfuegenThread(model, lock);
+        KuchenLoeschenThread loeschenThread = new KuchenLoeschenThread(model, lock);
         einfuegenThread.start();
         loeschenThread.start();
     }
