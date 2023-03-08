@@ -13,14 +13,14 @@ import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventHandler;
 import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventListener;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernEventHandler;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 import cli.listener.AddListener;
 import cli.listener.InfoListener;
-import cli.modus.AenderungsModus;
-import cli.modus.AnzeigeModus;
-import cli.modus.EinfuegenModus;
-import cli.modus.LoeschModus;
+import cli.modus.*;
 import observer.AllergenObserver;
 import geschaeftslogik.Model;
+import serialisierung.SingletonModel;
 
 public class AlternativesCLI {
 
@@ -98,7 +98,18 @@ public class AlternativesCLI {
 
                 AnzeigeModus anzeigeModus = new AnzeigeModus(addHandlerHerstellerAnzeigen, addHandlerKuchenAnzeigen, addHandlerAllergene);
 
-                HauptCLI hauptCLI = new HauptCLI(einfuegenModus, loeschModus, aenderungsModus, anzeigeModus);
+                //Mode speichern
+                ModelSpeichernEventHandler addHandlerModelSpeichern = new ModelSpeichernEventHandler();
+                ModelSpeichernEventListener addListenerModelSpeichern = new AddListener(model);
+                addHandlerModelSpeichern.add(addListenerModelSpeichern);
+                ModelSpeichernEventListener infoListenerModelSpeichern = new InfoListener();
+                addHandlerModelSpeichern.add(infoListenerModelSpeichern);
+
+                SerialisierungsModus serialisierungsModus = new SerialisierungsModus(addHandlerModelSpeichern);
+
+                SingletonModel.getInstance().setModel(model);
+
+                HauptCLI hauptCLI = new HauptCLI(einfuegenModus, loeschModus, aenderungsModus, anzeigeModus, serialisierungsModus);
                 hauptCLI.start();
             }
 

@@ -16,10 +16,15 @@ import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEvent;
 import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventListener;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEvent;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernLadenEvent;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 import geschaeftslogik.*;
+import serialisierung.JOS;
+import serialisierung.SingletonModel;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -27,18 +32,19 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinfuegenEventListener, HerstellerLoeschenEventListener, KuchenLoeschenEventListener, InspektionsEventListener, AllergeneAnzeigenEventListener, KuchenAnzeigenEventListener, HerstellerAnzeigenEventListener{
+public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinfuegenEventListener, HerstellerLoeschenEventListener, KuchenLoeschenEventListener, InspektionsEventListener, AllergeneAnzeigenEventListener, KuchenAnzeigenEventListener, HerstellerAnzeigenEventListener, ModelSpeichernEventListener {
 
 
     private final Model model;
 
     public AddListener(Model model){
         this.model = model;
+        SingletonModel.getInstance().setModel(model);
     }
     @Override
     public void onHerstellerEinfuegenEvent(HerstellerEinfuegenEvent herstellerEinfuegenEvent) {
         Hersteller hersteller = new Hersteller(herstellerEinfuegenEvent.getHersteller());
-        this.model.herstellerEinfuegen(hersteller);
+        model.herstellerEinfuegen(hersteller);
     }
 
     @Override
@@ -126,7 +132,7 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
 
     @Override
     public void onHerstellerAnzeigenEvent(HerstellerAnzeigenEvent event) {
-        List<Hersteller> res = model.abrufenDerHersteller();
+        List<Hersteller> res =  SingletonModel.getInstance().getModel().abrufenDerHersteller();
         for(Hersteller h : res){
             System.out.println(h);
         }
@@ -134,11 +140,29 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
 
     @Override
     public void onKuchenAnzeigenEvent(KuchenAnzeigenEvent event) {
-        List<Verkaufsobjekt> res = model.kuchenAbrufen(event.getKuchenTyp());
+        List<Verkaufsobjekt> res = SingletonModel.getInstance().getModel().kuchenAbrufen(event.getKuchenTyp());
         for(Verkaufsobjekt re : res){
             System.out.println(re);
         }
     }
 
-
+    @Override
+    public void onModelSpeichernEvent(ModelSpeichernLadenEvent event) {
+        JOS jos = new JOS(model);
+        if(event.getSpeicherArt().equals("saveJOS")){
+            try {
+                jos.serialisierenJOS();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if(event.getSpeicherArt().equals("loadJOS")){
+            try {
+                Model deserialisirungsModel = jos.deserialisieren();
+                SingletonModel.getInstance().setModel(deserialisirungsModel);
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }

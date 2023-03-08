@@ -4,6 +4,8 @@ import observer.Subject;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -13,8 +15,10 @@ import java.util.List;
 
 
 
-public class Model extends Subject {
+public class Model extends Subject implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
     private final List<Hersteller> herstellerListe;
 
     public List<Hersteller> getHerstellerListe() {

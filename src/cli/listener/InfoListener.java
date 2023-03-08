@@ -16,8 +16,10 @@ import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEvent;
 import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventListener;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEvent;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernLadenEvent;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 
-public class InfoListener implements HerstellerEinfuegenEventListener, KuchenEinfuegenEventListener, HerstellerLoeschenEventListener, KuchenLoeschenEventListener, InspektionsEventListener, AllergeneAnzeigenEventListener, KuchenAnzeigenEventListener, HerstellerAnzeigenEventListener {
+public class InfoListener implements HerstellerEinfuegenEventListener, KuchenEinfuegenEventListener, HerstellerLoeschenEventListener, KuchenLoeschenEventListener, InspektionsEventListener, AllergeneAnzeigenEventListener, KuchenAnzeigenEventListener, HerstellerAnzeigenEventListener, ModelSpeichernEventListener {
     @Override
     public void onHerstellerEinfuegenEvent(HerstellerEinfuegenEvent event) {
         System.out.println("Eine Operation wurde ausgefuehrt");
@@ -55,6 +57,11 @@ public class InfoListener implements HerstellerEinfuegenEventListener, KuchenEin
 
     @Override
     public void onKuchenAnzeigenEvent(KuchenAnzeigenEvent event) {
+        System.out.println("Eine Operation wurde ausgefuehrt");
+    }
+
+    @Override
+    public void onModelSpeichernEvent(ModelSpeichernLadenEvent event) {
         System.out.println("Eine Operation wurde ausgefuehrt");
     }
 }

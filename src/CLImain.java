@@ -15,15 +15,14 @@ import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventHandler;
 import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventListener;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernEventHandler;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 import cli.listener.AddListener;
 import cli.listener.InfoListener;
-import cli.modus.AenderungsModus;
-import cli.modus.AnzeigeModus;
-import cli.modus.EinfuegenModus;
-import cli.modus.LoeschModus;
+import cli.modus.*;
+import geschaeftslogik.Model;
 import observer.AllergenObserver;
 import observer.KapazitaetsObserver;
-import geschaeftslogik.Model;
 
 public class CLImain {
     //Test Eingabe Kremkuchen Hersteller1 4,50 386 36 Gluten,Erdnuss Butter //  Obsttorte Hersteller2 7,50 632 24 Gluten Apfel Sahne
@@ -113,7 +112,16 @@ public class CLImain {
 
             AnzeigeModus anzeigeModus = new AnzeigeModus(addHandlerHerstellerAnzeigen, addHandlerKuchenAnzeigen, addHandlerAllergene);
 
-            HauptCLI hauptCLI = new HauptCLI(einfuegenModus, loeschModus, aenderungsModus, anzeigeModus);
+            //Model speichern
+            ModelSpeichernEventHandler addHandlerModelSpeichern = new ModelSpeichernEventHandler();
+            ModelSpeichernEventListener addListenerModelSpeichern = new AddListener(model);
+            addHandlerModelSpeichern.add(addListenerModelSpeichern);
+            ModelSpeichernEventListener infoListenerModelSpeichern = new InfoListener();
+            addHandlerModelSpeichern.add(infoListenerModelSpeichern);
+
+            SerialisierungsModus serialisierungsModus = new SerialisierungsModus(addHandlerModelSpeichern);
+
+            HauptCLI hauptCLI = new HauptCLI(einfuegenModus, loeschModus, aenderungsModus, anzeigeModus, serialisierungsModus);
             hauptCLI.start();
         }
 

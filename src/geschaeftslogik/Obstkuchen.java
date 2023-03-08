@@ -5,14 +5,18 @@ import vertrag.Hersteller;
 import vertrag.Kuchen;
 
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 
-public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen{
+public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen, Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
     private final Hersteller hersteller;
     private final BigDecimal preis;
     private final int naehrwert;

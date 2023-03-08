@@ -10,12 +10,11 @@ import cli.infrastructure.InspektionsdatumSetzen.InspektionsEventHandler;
 import cli.infrastructure.KuchenAnzeigen.KuchenAnzeigenEventHandler;
 import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventHandler;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernEventHandler;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 import cli.listener.AddListener;
 import cli.listener.InfoListener;
-import cli.modus.AenderungsModus;
-import cli.modus.AnzeigeModus;
-import cli.modus.EinfuegenModus;
-import cli.modus.LoeschModus;
+import cli.modus.*;
 import geschaeftslogik.Hersteller;
 import geschaeftslogik.Model;
 import org.junit.jupiter.api.BeforeEach;
@@ -72,7 +71,14 @@ class CLITest {
 
         AnzeigeModus anzeigeModus = new AnzeigeModus(addHandlerHerstellerAnzeigen, addHandlerKuchenAnzeigen, addHandlerAllergene);
 
-        hauptCLI = new HauptCLI(einfuegenModus, loeschModus, aenderungsModus, anzeigeModus);
+        //Mode speichern
+        ModelSpeichernEventHandler addHandlerModelSpeichern = new ModelSpeichernEventHandler();
+        ModelSpeichernEventListener addListenerModelSpeichern = new AddListener(model);
+        addHandlerModelSpeichern.add(addListenerModelSpeichern);
+
+        SerialisierungsModus serialisierungsModus = new SerialisierungsModus(addHandlerModelSpeichern);
+
+        hauptCLI = new HauptCLI(einfuegenModus, loeschModus, aenderungsModus, anzeigeModus, serialisierungsModus);
     }
 
 
