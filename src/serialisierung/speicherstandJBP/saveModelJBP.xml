@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.5" class="java.beans.XMLDecoder">
+ <object class="geschaeftslogik.Model">
+  <int>10</int>
+  <object class="java.util.LinkedList">
+   <void method="add">
+    <object class="geschaeftslogik.Obsttorte">
+     <object class="geschaeftslogik.Hersteller">
+      <string>Hersteller1</string>
+     </object>
+     <object class="java.math.BigDecimal">
+      <string>7.50</string>
+     </object>
+     <int>632</int>
+     <object class="java.time.Duration" method="parse">
+      <string>PT576H</string>
+     </object>
+     <object class="java.util.ArrayList">
+      <void method="add">
+       <object class="java.lang.Enum" method="valueOf">
+        <class>vertrag.Allergen</class>
+        <string>Gluten</string>
+       </object>
+      </void>
+     </object>
+     <string>Apfel</string>
+     <string>error</string>
+     <void property="einfuegedatum">
+      <object class="java.time.LocalDateTime" method="of">
+       <int>2023</int>
+       <object class="java.lang.Enum" id="Month0" method="valueOf">
+        <class>java.time.Month</class>
+        <string>MARCH</string>
+       </object>
+       <int>9</int>
+       <int>12</int>
+       <int>48</int>
+       <int>38</int>
+       <int>27329500</int>
+      </object>
+     </void>
+     <void property="fachnummer">
+      <int>1</int>
+     </void>
+     <void property="inspektionsdatum">
+      <object class="java.util.Date">
+       <long>1678362518000</long>
+      </object>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="geschaeftslogik.Obstkuchen">
+     <object class="geschaeftslogik.Hersteller">
+      <string>Hersteller1</string>
+     </object>
+     <object class="java.math.BigDecimal">
+      <string>2.50</string>
+     </object>
+     <int>200</int>
+     <object class="java.time.Duration" method="parse">
+      <string>PT480H</string>
+     </object>
+     <object class="java.util.ArrayList"/>
+     <string>Erdbeere</string>
+     <void property="einfuegedatum">
+      <object class="java.time.LocalDateTime" method="of">
+       <int>2023</int>
+       <object idref="Month0"/>
+       <int>9</int>
+       <int>12</int>
+       <int>48</int>
+       <int>48</int>
+       <int>165847700</int>
+      </object>
+     </void>
+     <void property="fachnummer">
+      <int>2</int>
+     </void>
+     <void property="inspektionsdatum">
+      <object class="java.util.Date">
+       <long>1678362528000</long>
+      </object>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="geschaeftslogik.Kremkuchen">
+     <object class="geschaeftslogik.Hersteller">
+      <string>Hersteller1</string>
+     </object>
+     <object class="java.math.BigDecimal">
+      <string>2.50</string>
+     </object>
+     <int>200</int>
+     <object class="java.time.Duration" method="parse">
+      <string>PT480H</string>
+     </object>
+     <object class="java.util.ArrayList"/>
+     <string>Erdbeere</string>
+     <void property="einfuegedatum">
+      <object class="java.time.LocalDateTime" method="of">
+       <int>2023</int>
+       <object idref="Month0"/>
+       <int>9</int>
+       <int>12</int>
+       <int>48</int>
+       <int>58</int>
+       <int>971632900</int>
+      </object>
+     </void>
+     <void property="fachnummer">
+      <int>3</int>
+     </void>
+     <void property="inspektionsdatum">
+      <object class="java.util.Date">
+       <long>1678362538000</long>
+      </object>
+     </void>
+    </object>
+   </void>
+  </object>
+  <object class="java.util.LinkedList">
+   <void method="add">
+    <object class="geschaeftslogik.Hersteller">
+     <string>Hersteller1</string>
+    </object>
+   </void>
+   <void method="add">
+    <object class="geschaeftslogik.Hersteller">
+     <string>hersteller2</string>
+    </object>
+   </void>
+   <void method="add">
+    <object class="geschaeftslogik.Hersteller">
+     <string>Hersteller3</string>
+    </object>
+   </void>
+  </object>
+ </object>
+</java>

@@ -19,15 +19,17 @@ public class Model extends Subject implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+
     private final List<Hersteller> herstellerListe;
 
     public List<Hersteller> getHerstellerListe() {
         return herstellerListe;
     }
 
+
     private final List<Verkaufsobjekt> verkaufobjektListe;
 
-    public List<Verkaufsobjekt> getKuchenListe() {
+    public List<Verkaufsobjekt> getVerkaufobjektListe() {
         return verkaufobjektListe;
     }
 
@@ -35,14 +37,16 @@ public class Model extends Subject implements Serializable {
     public int getKapazitaet() {return kapazitaet;
     }
 
+
     int kapazitaet;
 
 
-    public Model(int kapazitaet) {
+    public Model(int kapazitaet, List<Verkaufsobjekt> verkaufobjektListe, List<Hersteller> herstellerListe) {
         this.kapazitaet = kapazitaet;
-        this.herstellerListe = new LinkedList<>();
-        this.verkaufobjektListe = new LinkedList<>();
+        this.herstellerListe = herstellerListe;
+        this.verkaufobjektListe = verkaufobjektListe;
     }
+
 
     /*
     Anlegen von Herstellern; dabei muss sichergestellt sein, dass kein Name

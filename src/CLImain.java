@@ -20,9 +20,13 @@ import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 import cli.listener.AddListener;
 import cli.listener.InfoListener;
 import cli.modus.*;
+import geschaeftslogik.Hersteller;
 import geschaeftslogik.Model;
 import observer.AllergenObserver;
 import observer.KapazitaetsObserver;
+import vertrag.Verkaufsobjekt;
+
+import java.util.LinkedList;
 
 public class CLImain {
     //Test Eingabe Kremkuchen Hersteller1 4,50 386 36 Gluten,Erdnuss Butter //  Obsttorte Hersteller2 7,50 632 24 Gluten Apfel Sahne
@@ -45,7 +49,9 @@ public class CLImain {
             }
         }
         if (kapazitaet > 0) {
-            Model model = new Model(kapazitaet);
+            LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+            LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+            Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);
             //Observer beim Model registrieren
             KapazitaetsObserver kapazitaetsObserver = new KapazitaetsObserver(model);
             model.add(kapazitaetsObserver);

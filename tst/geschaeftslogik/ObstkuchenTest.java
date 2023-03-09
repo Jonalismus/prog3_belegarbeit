@@ -3,6 +3,7 @@ package geschaeftslogik;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import vertrag.Allergen;
+import vertrag.Verkaufsobjekt;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -78,7 +80,9 @@ class ObstkuchenTest {
     // Testet die getFachnummer Methode
     @Test
     void getFachnummer() {
-        Model model = new Model(3);
+        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+        Model model = new Model(3, verkaufsobjektLinkedList, herstellerLinkedList);
         model.herstellerEinfuegen(hersteller);
         model.verkaufsObjektEinfuegen(testObstkuchen);
         assertEquals(1, testObstkuchen.getFachnummer());

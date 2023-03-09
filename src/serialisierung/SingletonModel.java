@@ -2,6 +2,8 @@ package serialisierung;
 
 import geschaeftslogik.Model;
 
+
+//Klasse damit alle Events nach der deserialsierung auf das aktuallisierte Model zugreifen
 public class SingletonModel {
     private static SingletonModel instance;
     private Model model;

@@ -3,6 +3,9 @@ import geschaeftslogik.Model;
 import simulation.simDrei.InspektionsThread;
 import simulation.simDrei.KuchenEinfuegenThreadModifiziert;
 import simulation.simDrei.KuchenLoeschenThreadModifiziert;
+import vertrag.Verkaufsobjekt;
+
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -23,7 +26,9 @@ public class SimulationDrei {
         int interval = scanner.nextInt();
 
         // Initialize model and lock
-        Model model = new Model(capacity);
+        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+        Model model = new Model(capacity, verkaufsobjektLinkedList, herstellerLinkedList);
         Lock lock = new ReentrantLock();
         Condition condition = lock.newCondition();
         model.herstellerEinfuegen(new Hersteller("ThreadHersteller"));
@@ -49,7 +54,7 @@ public class SimulationDrei {
         executor.scheduleAtFixedRate(() -> {
             lock.lock();
             try {
-                System.out.println("Kuchenautomat Zustand: Kapazitaet " + model.getKapazitaet() + ", Anzahl Kuchen " + model.getKuchenListe().size());
+                System.out.println("Kuchenautomat Zustand: Kapazitaet " + model.getKapazitaet() + ", Anzahl Kuchen " + model.getVerkaufobjektListe().size());
             } finally {
                 lock.unlock();
             }

@@ -20,7 +20,7 @@ public class SerialisierungsModus {
         input = scanner.nextLine();
 
         switch (input){
-            case "saveJOS", "loadJOS" -> {
+            case "saveJOS", "loadJOS", "saveJBP", "loadJBP" -> {
                 ModelSpeichernLadenEvent event = new ModelSpeichernLadenEvent(this, input);
                 if (null != this.addHandlerSpeichern) {
                     this.addHandlerSpeichern.handle(event);

@@ -22,6 +22,11 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen, S
     private final int naehrwert;
     private final Duration haltbarkeit;
     private final Collection<Allergen> allergene;
+
+    public String getSorte() {
+        return sorte;
+    }
+
     private final String sorte;
     private int fachnummer;
 

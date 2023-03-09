@@ -19,6 +19,7 @@ import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
 import cli.infrastructure.ModelSpeichern.ModelSpeichernLadenEvent;
 import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 import geschaeftslogik.*;
+import serialisierung.JBP;
 import serialisierung.JOS;
 import serialisierung.SingletonModel;
 import vertrag.Allergen;
@@ -149,6 +150,7 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
     @Override
     public void onModelSpeichernEvent(ModelSpeichernLadenEvent event) {
         JOS jos = new JOS(model);
+        JBP jbp = new JBP(model);
         if(event.getSpeicherArt().equals("saveJOS")){
             try {
                 jos.serialisierenJOS();
@@ -158,10 +160,25 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
         }
         if(event.getSpeicherArt().equals("loadJOS")){
             try {
-                Model deserialisirungsModel = jos.deserialisieren();
+                Model deserialisirungsModel = jos.deserialisierenJOS();
                 SingletonModel.getInstance().setModel(deserialisirungsModel);
             } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
+            }
+        }
+        if(event.getSpeicherArt().equals("saveJBP")){
+            try{
+                jbp.serialisierenJBP();
+            } catch (IOException e){
+                throw new RuntimeException();
+            }
+        }
+        if(event.getSpeicherArt().equals("loadJBP")){
+            try{
+                Model deserialisirungsModel = jbp.deserialisierenJBP();
+                SingletonModel.getInstance().setModel(deserialisirungsModel);
+            } catch (IOException e){
+                throw new RuntimeException();
             }
         }
     }

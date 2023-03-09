@@ -25,6 +25,7 @@ class ModelTest {
     List<Allergen> allergens;
     String sorte;
     String sorteZwei;
+    Model model;
 
     @BeforeEach
     void setUp() {
@@ -35,37 +36,37 @@ class ModelTest {
         allergens = List.of(Erdnuss);
         sorte = "Butter";
         sorteZwei = "Erdbeere";
+        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+        model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
+
     }
 
     // Test ueberprueft, ob ein Hersteller erfolgreich hinzugefuegt werden kann
     @Test
     void herstellerEinfuegen() {
-        Model m = new Model(3);
         Hersteller h = new Hersteller("hersteller1");
-        assertTrue(m.herstellerEinfuegen(h));
+        assertTrue(model.herstellerEinfuegen(h));
     }
 
     // Test ueberprueft, ob es möglich ist, zweimal den gleich Hersteller einzufuegen. Es darf dabei nicht moeglich sein
     @Test
     void herstellerEinfuegenNichtMoeglich() {
-        Model m = new Model(3);
         Hersteller h = new Hersteller("hersteller1");
-        m.herstellerEinfuegen(h);
-        assertFalse(m.herstellerEinfuegen(h));
+        model.herstellerEinfuegen(h);
+        assertFalse(model.herstellerEinfuegen(h));
     }
 
     // Hersteller Einfuegen als MockTest
     @Test
     public void testHerstellerEinfuegenMitMock() {
         Hersteller mockHersteller = mock(Hersteller.class);
-        Model model = new Model(3);
         assertTrue(model.herstellerEinfuegen(mockHersteller));
     }
 
     // Kremkuchen Einfuegen MockTest
     @Test
     public void testKremkuchenEinfuegenMitMock() {
-        Model model = new Model(10);
         // Erstellen von Mock-Objekten
         Kremkuchen mockKremkuchen = mock(Kremkuchen.class);
         Hersteller mockHersteller = mock(Hersteller.class);
@@ -81,7 +82,6 @@ class ModelTest {
     // Kremkuchen Einfuegen Test
     @Test
     public void testKremkuchenEinfuegen() {
-        Model model = new Model(3);
         Kremkuchen kremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         model.getHerstellerListe().add(hersteller1);
         assertTrue(model.verkaufsObjektEinfuegen(kremkuchen));
@@ -90,7 +90,6 @@ class ModelTest {
     // Obstkuchen Einfuegen MockTest
     @Test
     public void testObstkuchenEinfuegenMitMock() {
-        Model model = new Model(10);
         // Erstellen von Mock-Objekten
         Obstkuchen mockObstkuchen = mock(Obstkuchen.class);
         Hersteller mockHersteller = mock(Hersteller.class);
@@ -106,7 +105,6 @@ class ModelTest {
     // Obstkuchen Einfuegen Test
     @Test
     public void testObstkuchenEinfuegen() {
-        Model model = new Model(3);
         Obstkuchen obstkuchen = new Obstkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         model.getHerstellerListe().add(hersteller1);
         assertTrue(model.verkaufsObjektEinfuegen(obstkuchen));
@@ -115,7 +113,6 @@ class ModelTest {
     // Obsttorte Einfuegen MockTest
     @Test
     public void testObsttorteEinfuegenMitMock() {
-        Model model = new Model(10);
         // Erstellen von Mock-Objekten
         Obsttorte mockObsttorte = mock(Obsttorte.class);
         Hersteller mockHersteller = mock(Hersteller.class);
@@ -131,7 +128,6 @@ class ModelTest {
     // Obsttorte Einfuegen Test
     @Test
     public void testObsttorteEinfuegen() {
-        Model model = new Model(3);
         Obsttorte obsttorte = new Obsttorte(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte, sorteZwei);
         model.getHerstellerListe().add(hersteller1);
         assertTrue(model.verkaufsObjektEinfuegen(obsttorte));
@@ -140,7 +136,6 @@ class ModelTest {
     // Test zum Einfuegen eines Kuchens wenn der Hersteller nicht hinterlegt ist. Einfuegen darf nicht moeglich sein
     @Test
     public void testKuchenEinfuegenNichtMoeglich() {
-        Model model = new Model(3);
         Kremkuchen kremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         assertFalse(model.verkaufsObjektEinfuegen(kremkuchen));
     }
@@ -148,7 +143,9 @@ class ModelTest {
     // Test zum Einfuegen eines Kuchens wenn die Kapazitaet erreicht ist. Einfuegen darf nicht moeglich sein (MockTest)
     @Test
     public void testKuchenEinfuegenWennKapazitaetErreichtMitMock() {
-        Model model = new Model(2);
+        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+        Model model = new Model(2, verkaufsobjektLinkedList, herstellerLinkedList);
         // Erstellen von Mock-Objekten
         Obsttorte mockObsttorte = mock(Obsttorte.class);
         Obstkuchen mockObstkuchen = mock(Obstkuchen.class);
@@ -177,7 +174,6 @@ class ModelTest {
         // Erstellen von Mock-Objekten
         Kremkuchen mockKremkuchen = mock(Kremkuchen.class);
         Hersteller mockHersteller = mock(Hersteller.class);
-        Model model = new Model(10);
         model.herstellerEinfuegen(mockHersteller);
 
         // Konfiguration der Mock-Objekte
@@ -196,7 +192,6 @@ class ModelTest {
         // Erstellen von Mock-Objekten
         Kremkuchen mockKremkuchen = mock(Kremkuchen.class);
         Hersteller mockHersteller = mock(Hersteller.class);
-        Model model = new Model(10);
         model.herstellerEinfuegen(mockHersteller);
 
         // Konfiguration der Mock-Objekte
@@ -215,7 +210,6 @@ class ModelTest {
         // Erstellen von Mock-Objekten
         Verkaufsobjekt mockVerkaufsobjekt = mock(Verkaufsobjekt.class);
         Hersteller mockHersteller = mock(Hersteller.class);
-        Model model = new Model(10);
         model.herstellerEinfuegen(mockHersteller);
 
         // Konfiguration der Mock-Objekte
@@ -228,28 +222,25 @@ class ModelTest {
     // Test der prueft ob die Kuchen Liste nach dem Hinzufügen eines Kuchens die erwartete Groeße hat
     @Test
     public void testEinfuegenErhoetVerkaufsobjektListeGroesseUmEins() {
-        Model model = new Model(3);
         Kremkuchen kremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         model.herstellerEinfuegen(hersteller1);
         model.verkaufsObjektEinfuegen(kremkuchen);
-        assertEquals(1, model.getKuchenListe().size());
+        assertEquals(1, model.getVerkaufobjektListe().size());
     }
 
     // Ueberpruefen, ob die zurückgegebene Kuchenliste den erwarteten Kuchen enthaelt
     @Test
     public void testGetVerkaufsobjektListe() {
-        Model model = new Model(5);
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         model.herstellerEinfuegen(hersteller1);
         model.verkaufsObjektEinfuegen(testKremkuchen);
-        List<Verkaufsobjekt> kuchhenListe = model.getKuchenListe();
+        List<Verkaufsobjekt> kuchhenListe = model.getVerkaufobjektListe();
         assertTrue(kuchhenListe.contains(testKremkuchen));
     }
 
     // Test der prueft ob die Hersteller Liste nach dem Hinzufuegen eines Herstellers die erwartete Groeße hat
     @Test
     public void testEinfuegenErhoetHerstellerlisteGroesseUmEins() {
-        Model model = new Model(3);
         model.herstellerEinfuegen(hersteller1);
         assertEquals(1, model.getHerstellerListe().size());
     }
@@ -257,7 +248,6 @@ class ModelTest {
     // Ueberpruefen, ob die zurückgegebene Herstellerliste den erwarteten Hersteller enthaelt
     @Test
     public void testGetHerstellerListe() {
-        Model model = new Model(5);
         Hersteller herstellerTest = new Hersteller("Hersteller 1");
         model.herstellerEinfuegen(herstellerTest);
         List<Hersteller> herstellerListe = model.getHerstellerListe();
@@ -268,7 +258,6 @@ class ModelTest {
     @Test
     public void testAbrufenDerHersteller(){
         Hersteller testHersteller = mock(Hersteller.class);
-        Model model = new Model(10);
         model.getHerstellerListe().add(testHersteller);
         List<Hersteller> res = model.abrufenDerHersteller();
         assertEquals(1, res.size());
@@ -280,7 +269,6 @@ class ModelTest {
      */
     @Test
     public void testAbrufenDerHerstellerMitAnzahlDerKuchen(){
-        Model model = new Model(10);
         Hersteller testHersteller = new Hersteller("testHersteller");
 
         // Erstellen von Mock-Objekten
@@ -295,9 +283,9 @@ class ModelTest {
 
         // Einfuegen der Kuchen und des Herstellers
         model.getHerstellerListe().add(testHersteller);
-        model.getKuchenListe().add(testKremkuchen);
-        model.getKuchenListe().add(testObstkuchen);
-        model.getKuchenListe().add(testObsttorte);
+        model.getVerkaufobjektListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testObstkuchen);
+        model.getVerkaufobjektListe().add(testObsttorte);
 
         List<Hersteller> res = model.abrufenDerHersteller();
         assertEquals(3, res.get(0).getAnzahlKuchen());
@@ -306,7 +294,6 @@ class ModelTest {
     // Testet die kuchenAbrufen() Methode, ob sie eine Liste zurueck gibt
     @Test
     void testKuchenAbrufen(){
-        Model model = new Model(10);
         List<Verkaufsobjekt> res = model.kuchenAbrufen(null);
         assertEquals(0, res.size());
     }
@@ -314,8 +301,6 @@ class ModelTest {
     // Testet die kuchenAbrufen() Methode, ob sie eine Liste zurueck gibt mit den richtigen Kuchen
     @Test
     void testKuchenAbrufenWennKuchenEnthalten(){
-        Model model = new Model(10);
-
         // Erstellen von Mock-Objekten
         Kremkuchen testKremkuchen = mock(Kremkuchen.class);
         Obstkuchen testObstkuchen = mock(Obstkuchen.class);
@@ -329,9 +314,9 @@ class ModelTest {
 
 
         // Einfuegen der Kuchen
-        model.getKuchenListe().add(testKremkuchen);
-        model.getKuchenListe().add(testObstkuchen);
-        model.getKuchenListe().add(testObsttorte);
+        model.getVerkaufobjektListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testObstkuchen);
+        model.getVerkaufobjektListe().add(testObsttorte);
 
         List<Verkaufsobjekt> res = model.kuchenAbrufen(null);
         assertEquals(3, res.size());
@@ -340,8 +325,6 @@ class ModelTest {
     // Testet die kuchenAbrufen() Methode, ob sie eine Liste zurueck gibt nur mit Kremkuchen
     @Test
     void testKremkuchenAbrufen(){
-        Model model = new Model(10);
-
         // Erstellen von Mock-Objekten
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Obstkuchen testObstkuchen = new Obstkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
@@ -352,9 +335,9 @@ class ModelTest {
         testObsttorte.setEinfuegedatum( LocalDateTime.of(2022, 1, 1, 12, 0, 0));
 
         // Einfuegen der Kuchen (1x Kremkuchen)
-        model.getKuchenListe().add(testKremkuchen);
-        model.getKuchenListe().add(testObstkuchen);
-        model.getKuchenListe().add(testObsttorte);
+        model.getVerkaufobjektListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testObstkuchen);
+        model.getVerkaufobjektListe().add(testObsttorte);
 
         List<Verkaufsobjekt> res = model.kuchenAbrufen("kremkuchen");
         assertEquals(1, res.size());
@@ -363,8 +346,6 @@ class ModelTest {
     // Testet die kuchenAbrufen() Methode, ob sie eine Liste zurueck gibt nur mit Obstkuchen
     @Test
     void testObstkuchenAbrufen(){
-        Model model = new Model(10);
-
         // Erstellen von Mock-Objekten
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Obstkuchen testObstkuchen = new Obstkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
@@ -375,10 +356,10 @@ class ModelTest {
         testObsttorte.setEinfuegedatum( LocalDateTime.of(2022, 1, 1, 12, 0, 0));
 
         // Einfuegen der Kuchen (2x Obstkuchen)
-        model.getKuchenListe().add(testKremkuchen);
-        model.getKuchenListe().add(testObstkuchen);
-        model.getKuchenListe().add(testObstkuchen);
-        model.getKuchenListe().add(testObsttorte);
+        model.getVerkaufobjektListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testObstkuchen);
+        model.getVerkaufobjektListe().add(testObstkuchen);
+        model.getVerkaufobjektListe().add(testObsttorte);
 
         List<Verkaufsobjekt> res = model.kuchenAbrufen("obstkuchen");
         assertEquals(2, res.size());
@@ -387,8 +368,6 @@ class ModelTest {
     // Testet die kuchenAbrufen() Methode, ob sie eine Liste zurueck gibt nur mit Obsttorten
     @Test
     void testObsttorteAbrufen(){
-        Model model = new Model(10);
-
         // Erstellen von Kuchen-Objekten
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Obstkuchen testObstkuchen = new Obstkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
@@ -399,12 +378,12 @@ class ModelTest {
         testObsttorte.setEinfuegedatum(LocalDateTime.of(2022, 1, 1, 12, 0, 0));
 
         // Einfuegen der Kuchen (3x Obsttorte)
-        model.getKuchenListe().add(testKremkuchen);
-        model.getKuchenListe().add(testObstkuchen);
-        model.getKuchenListe().add(testObstkuchen);
-        model.getKuchenListe().add(testObsttorte);
-        model.getKuchenListe().add(testObsttorte);
-        model.getKuchenListe().add(testObsttorte);
+        model.getVerkaufobjektListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testObstkuchen);
+        model.getVerkaufobjektListe().add(testObstkuchen);
+        model.getVerkaufobjektListe().add(testObsttorte);
+        model.getVerkaufobjektListe().add(testObsttorte);
+        model.getVerkaufobjektListe().add(testObsttorte);
 
         List<Verkaufsobjekt> res = model.kuchenAbrufen("obsttorte");
         assertEquals(3, res.size());
@@ -413,9 +392,8 @@ class ModelTest {
     // Testet die IspektionsDatumSetzen() Methode, ob das Inspektionsdatum gesetzt wird
     @Test
     void testIspektionsDatumSetzen(){
-        Model model = new Model(10);
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
-        model.getKuchenListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testKremkuchen);
         testKremkuchen.setFachnummer(1);
         LocalDateTime localDateTime = LocalDateTime.now().withNano(0);
         Date inspektion = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
@@ -426,7 +404,6 @@ class ModelTest {
     // Test zum loeschen eines Herstellers
     @Test
     void testloeschenHersteller(){
-        Model model = new Model(10);
         Hersteller herstellerMock = mock(Hersteller.class);
         when(herstellerMock.getName()).thenReturn("herstellerMock");
         model.getHerstellerListe().add(herstellerMock);
@@ -436,7 +413,6 @@ class ModelTest {
     //Test loeschen, klappt nicht, da Hersteller nicht in der Liste hinterlegt ist
     @Test
     void testloeschenHerstellerFalse(){
-        Model model = new Model(10);
         Hersteller herstellerMock = mock(Hersteller.class);
         when(herstellerMock.getName()).thenReturn("herstellerMock");
         model.getHerstellerListe().add(herstellerMock);
@@ -446,35 +422,31 @@ class ModelTest {
     //Test erfolgreiches loeschen eines Kuchens
     @Test
     void testloeschenEinesKuchens(){
-        Model model = new Model(10);
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Kremkuchen testKremkuchenZwei = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         testKremkuchen.setFachnummer(1);
         testKremkuchenZwei.setFachnummer(2);
-        model.getKuchenListe().add(testKremkuchen);
-        model.getKuchenListe().add(testKremkuchenZwei);
+        model.getVerkaufobjektListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testKremkuchenZwei);
         model.verkaufsObjektLoeschen(1);
-        assertEquals(1,model.getKuchenListe().size());
+        assertEquals(1,model.getVerkaufobjektListe().size());
     }
 
     // Test loeschen eines Kuchens klappt nicht, da Fachnummer nicht vergeben
     @Test
     void testloeschenEinesKuchensFehlerhaft(){
-        Model model = new Model(10);
         Kremkuchen testKremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         Kremkuchen testKremkuchenZwei = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
         testKremkuchen.setFachnummer(1);
         testKremkuchenZwei.setFachnummer(2);
-        model.getKuchenListe().add(testKremkuchen);
-        model.getKuchenListe().add(testKremkuchenZwei);
+        model.getVerkaufobjektListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testKremkuchenZwei);
         assertFalse(model.verkaufsObjektLoeschen(3));
     }
 
     // Test zum Abrufen der enthaltenen Allergene im Automaten
     @Test
     void testAlleEnthaltenenAllergeneAnzeigen(){
-        Model model = new Model(10);
-
         // Erstellen von Mock-Objekten
         Kremkuchen testKremkuchen = mock(Kremkuchen.class);
         Obstkuchen testObstkuchen = mock(Obstkuchen.class);
@@ -486,9 +458,9 @@ class ModelTest {
         when(testObsttorte.getAllergene()).thenReturn(Collections.singleton(Sesamsamen));
 
         // Kuchen in die Liste einfuegen
-        model.getKuchenListe().add(testKremkuchen);
-        model.getKuchenListe().add(testObstkuchen);
-        model.getKuchenListe().add(testObsttorte);
+        model.getVerkaufobjektListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testObstkuchen);
+        model.getVerkaufobjektListe().add(testObsttorte);
 
         List<Allergen> res = model.allergeneAbrufen(true);
         assertEquals(3, res.size());
@@ -497,8 +469,6 @@ class ModelTest {
     // Test zum Abrufen der nicht enthaltenen Allergene im Automaten
     @Test
     void testAlleNichtEnthalteneAllergeneAnzeigen(){
-        Model model = new Model(10);
-
         // Erstellen von Mock-Objekten
         Kremkuchen testKremkuchen = mock(Kremkuchen.class);
         Obstkuchen testObstkuchen = mock(Obstkuchen.class);
@@ -510,9 +480,9 @@ class ModelTest {
         when(testObsttorte.getAllergene()).thenReturn(Collections.singleton(Sesamsamen));
 
         // Kuchen in die Liste einfuegen
-        model.getKuchenListe().add(testKremkuchen);
-        model.getKuchenListe().add(testObstkuchen);
-        model.getKuchenListe().add(testObsttorte);
+        model.getVerkaufobjektListe().add(testKremkuchen);
+        model.getVerkaufobjektListe().add(testObstkuchen);
+        model.getVerkaufobjektListe().add(testObsttorte);
 
         List<Allergen> res = model.allergeneAbrufen(false);
         assertEquals(1, res.size());

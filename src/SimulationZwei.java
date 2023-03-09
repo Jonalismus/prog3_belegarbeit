@@ -5,7 +5,9 @@ import observer.KuchenEinfuegenObserver;
 import observer.KuchenLoeschenObserver;
 import simulation.simEins.KuchenEinfuegenThread;
 import simulation.simEins.KuchenLoeschenThread;
+import vertrag.Verkaufsobjekt;
 
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -19,7 +21,9 @@ public class SimulationZwei {
         System.out.println("Bitte geben Sie die Anzahl der Threads ein:");
         int anzahlThreads = scanner.nextInt();
         Lock lock = new ReentrantLock();
-        Model model = new Model(kapazitaet);
+        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+        Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);
         model.herstellerEinfuegen(new Hersteller("ThreadHersteller"));
         KuchenEinfuegenObserver kuchenEinfuegenObserver = new KuchenEinfuegenObserver(model);
         model.add(kuchenEinfuegenObserver);

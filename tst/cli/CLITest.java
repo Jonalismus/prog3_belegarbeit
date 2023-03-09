@@ -19,11 +19,13 @@ import geschaeftslogik.Hersteller;
 import geschaeftslogik.Model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import vertrag.Verkaufsobjekt;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.SequenceInputStream;
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,7 +37,9 @@ class CLITest {
 
     @BeforeEach
     void setUp() {
-        model = new Model(10);
+        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+        model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
         //Kuchen Einfuegen Event ohne einhängen der Handler und Listener
         KuchenEinfuegenEventHandler addHandlerKuchen = new KuchenEinfuegenEventHandler();
         //Hersteller Einfuegen Event

@@ -26,7 +26,7 @@ public class JOS {
         }
     }
 
-    public Model deserialisieren() throws IOException, ClassNotFoundException {
+    public Model deserialisierenJOS() throws IOException, ClassNotFoundException {
         File file = new File("src\\serialisierung\\speicherstandJOS\\saveModel.ser");
         try (FileInputStream inputStream = new FileInputStream(file);
              ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {

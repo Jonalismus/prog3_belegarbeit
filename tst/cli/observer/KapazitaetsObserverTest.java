@@ -30,11 +30,13 @@ import observer.KapazitaetsObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import vertrag.Allergen;
+import vertrag.Verkaufsobjekt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,7 +54,9 @@ class KapazitaetsObserverTest {
 
     @BeforeEach
     void setUp() {
-        model = new Model(10);
+        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+        model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
         hersteller1 = new Hersteller("hersteller1");
         preis = new BigDecimal("3.20");
         naherwerte = 123;

@@ -18,9 +18,13 @@ import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 import cli.listener.AddListener;
 import cli.listener.InfoListener;
 import cli.modus.*;
+import geschaeftslogik.Hersteller;
 import observer.AllergenObserver;
 import geschaeftslogik.Model;
 import serialisierung.SingletonModel;
+import vertrag.Verkaufsobjekt;
+
+import java.util.LinkedList;
 
 public class AlternativesCLI {
 
@@ -39,7 +43,9 @@ public class AlternativesCLI {
                 }
             }
             if (kapazitaet > 0) {
-                Model model = new Model(kapazitaet);
+                LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+                LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+                Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);
                 System.out.println("Achtung! Löschen von Herstellern und das Auflisten der Allergene nicht möglich!");
                 //Observer beim Model registrieren
                 AllergenObserver allergenObserver = new AllergenObserver(model);

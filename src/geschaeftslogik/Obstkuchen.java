@@ -1,9 +1,9 @@
 package geschaeftslogik;
 
-import vertrag.*;
+import vertrag.Allergen;
 import vertrag.Hersteller;
 import vertrag.Kuchen;
-
+import vertrag.Verkaufsobjekt;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -22,6 +22,7 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen, S
     private final int naehrwert;
     private final Duration haltbarkeit;
     private final Collection<Allergen> allergene;
+
     private final String sorte;
     private int fachnummer;
     private LocalDateTime einfuegedatum;
@@ -110,4 +111,9 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen, S
     public String toString() {
         return "[Obstkuchen] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + verbleibendeHaltbarkeit + "]";
     }
+    public String getSorte() {
+        return sorte;
+    }
+
+
 }

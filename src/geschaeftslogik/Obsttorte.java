@@ -5,7 +5,6 @@ import vertrag.Hersteller;
 import vertrag.Kuchen;
 import vertrag.Verkaufsobjekt;
 
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -23,6 +22,7 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte, Ser
     private final int naehrwert;
     private final Duration haltbarkeit;
     private final Collection<Allergen> allergene;
+
     private final String sorteEins;
 
     private final String sorteZwei;
@@ -116,8 +116,17 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte, Ser
         return einfuegedatum;
     }
 
+    public String getSorteEins() {
+        return sorteEins;
+    }
+
+    public String getSorteZwei() {
+        return sorteZwei;
+    }
+
     public String toString() {
         return "[Obsttorte] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + verbleibendeHaltbarkeit + "]";
     }
+
 
 }

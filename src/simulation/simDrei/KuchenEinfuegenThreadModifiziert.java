@@ -43,7 +43,7 @@ public class KuchenEinfuegenThreadModifiziert extends Thread {
         while (true) {
             lock.lock();
             try {
-                while (model.getKuchenListe().size() >= model.getKapazitaet()) {
+                while (model.getVerkaufobjektListe().size() >= model.getKapazitaet()) {
                     System.out.println("Kuchenautomat ist voll " + this.getName() + " wartet...");
                     condition.await();
                 }
