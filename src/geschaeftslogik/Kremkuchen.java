@@ -34,6 +34,10 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen, S
     private LocalDateTime einfuegedatum;
 
 
+
+    private String kuchentyp;
+
+
     public void setVerbleibendeHaltbarkeit(long verbleibendeHaltbarkeit) {
         this.verbleibendeHaltbarkeit = verbleibendeHaltbarkeit;
     }
@@ -97,6 +101,10 @@ public class Kremkuchen implements Verkaufsobjekt, Kuchen, vertrag.Kremkuchen, S
     @Override
     public int getFachnummer() {
         return fachnummer;
+    }
+
+    public String getKuchentyp() {
+        return "Kremkuchen";
     }
 
     public LocalDateTime getEinfuegedatum() {

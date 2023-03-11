@@ -39,13 +39,13 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
     private final Model model;
 
     public AddListener(Model model){
-        this.model = model;
         SingletonModel.getInstance().setModel(model);
+        this.model = SingletonModel.getInstance().getModel();
     }
     @Override
     public void onHerstellerEinfuegenEvent(HerstellerEinfuegenEvent herstellerEinfuegenEvent) {
         Hersteller hersteller = new Hersteller(herstellerEinfuegenEvent.getHersteller());
-        model.herstellerEinfuegen(hersteller);
+        SingletonModel.getInstance().getModel().herstellerEinfuegen(hersteller);
     }
 
     @Override
@@ -86,45 +86,45 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
         switch (kuchenEinfuegenEvent.getKuchentyp()) {
             case "Kremkuchen" -> {
                 Kremkuchen kremkuchen = new Kremkuchen(hersteller, preis, naehrwert, haltbarkeit, allergene, sorte);
-                model.verkaufsObjektEinfuegen(kremkuchen);
+                SingletonModel.getInstance().getModel().verkaufsObjektEinfuegen(kremkuchen);
             }
             case "Obstkuchen" -> {
                 Obstkuchen Obstkuchen = new Obstkuchen(hersteller, preis, naehrwert, haltbarkeit, allergene, sorte);
-                model.verkaufsObjektEinfuegen(Obstkuchen);
+                SingletonModel.getInstance().getModel().verkaufsObjektEinfuegen(Obstkuchen);
             }
             case "Obsttorte" -> {
                 Obsttorte Obsttorte = new Obsttorte(hersteller, preis, naehrwert, haltbarkeit, allergene, sorte, sorteZwei[0]);
-                model.verkaufsObjektEinfuegen(Obsttorte);
+                SingletonModel.getInstance().getModel().verkaufsObjektEinfuegen(Obsttorte);
             }
         }
     }
 
     @Override
     public void onHerstellerLoeschenEvent(HerstellerLoeschenEvent event) {
-        model.herstellerLoeschen(event.getHersteller());
+        SingletonModel.getInstance().getModel().herstellerLoeschen(event.getHersteller());
     }
 
     @Override
     public void onKuchenLoeschenEvent(KuchenLoeschenEvent event) {
         int fachnummer = Integer.parseInt(event.getFachnummer());
-        model.verkaufsObjektLoeschen(fachnummer);
+        SingletonModel.getInstance().getModel().verkaufsObjektLoeschen(fachnummer);
     }
 
     @Override
     public void onInspektionsEvent(InspektionsEvent event) {
         int fachnummer = Integer.parseInt(event.getFachnummer());
-        model.inspektionsDatumSetzen(fachnummer);
+        SingletonModel.getInstance().getModel().inspektionsDatumSetzen(fachnummer);
     }
 
     @Override
     public void onAllergeneAnzeigenEvent(AllergeneAnzeigenEvent event) {
         if(event.getAllergene().equals("allergene i")){
-            List<Allergen> allergene = model.allergeneAbrufen(true);
+            List<Allergen> allergene = SingletonModel.getInstance().getModel().allergeneAbrufen(true);
             for(Allergen a : allergene){
                 System.out.println(a.toString());
             }
         } else if (event.getAllergene().equals("allergene e")){
-            List<Allergen> allergene = model.allergeneAbrufen(false);
+            List<Allergen> allergene = SingletonModel.getInstance().getModel().allergeneAbrufen(false);
             for(Allergen a : allergene){
                 System.out.println(a.toString());
             }

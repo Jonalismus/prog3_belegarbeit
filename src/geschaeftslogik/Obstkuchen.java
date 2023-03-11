@@ -28,6 +28,7 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen, S
     private LocalDateTime einfuegedatum;
     private Date inspektionsdatum;
     private long verbleibendeHaltbarkeit;
+    private String kuchentyp;
 
 
     public Obstkuchen(Hersteller hersteller, BigDecimal preis, int naehrwert, Duration haltbarkeit, Collection<Allergen> allergene, String sorte) {
@@ -108,11 +109,16 @@ public class Obstkuchen implements Verkaufsobjekt, Kuchen, vertrag.Obstkuchen, S
         return einfuegedatum;
     }
 
+
     public String toString() {
         return "[Obstkuchen] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + verbleibendeHaltbarkeit + "]";
     }
     public String getSorte() {
         return sorte;
+    }
+
+    public String getKuchentyp() {
+        return "Obstkuchen";
     }
 
 

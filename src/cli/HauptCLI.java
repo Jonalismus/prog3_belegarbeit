@@ -24,19 +24,25 @@ public class HauptCLI {
     public void start() {
         Scanner scanner = new Scanner(System.in);
         String input;
+        Modus aktuellerModus = anzeigeModus;
 
         while (true) {
             input = scanner.nextLine();
 
-            switch (input) {
-                case ":c" -> einfuegeModus.start();
-                case ":r" -> anzeigeModus.start();
-                case ":d" -> loeschModus.start();
-                case ":u" -> aenderungsModus.start();
-                case ":p" -> serialisierungsModus.start();
-                default -> System.out.println("Ungueltiger Befehl. Bitte versuchen Sie es erneut");
+            if (input.startsWith(":")) {
+                switch (input) {
+                    case ":c" -> aktuellerModus = einfuegeModus;
+                    case ":r" -> aktuellerModus = anzeigeModus;
+                    case ":d" -> aktuellerModus = loeschModus;
+                    case ":u" -> aktuellerModus = aenderungsModus;
+                    case ":p" -> aktuellerModus = serialisierungsModus;
+                    default -> System.out.println("Ungueltiger Befehl. Bitte versuchen Sie es erneut");
+                }
+            } else {
+                aktuellerModus.handleInput(input);
             }
         }
     }
+
 
 }

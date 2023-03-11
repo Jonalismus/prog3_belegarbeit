@@ -2,9 +2,9 @@
   <library name="mockito" type="repository">
     <properties maven-id="org.mockito:mockito-core:RELEASE" />
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/mockito-core-5.1.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/byte-buddy-1.12.22.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/byte-buddy-agent-1.12.22.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mockito-core-5.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/byte-buddy-1.14.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/byte-buddy-agent-1.14.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/objenesis-3.3.jar!/" />
     </CLASSES>
     <JAVADOC />

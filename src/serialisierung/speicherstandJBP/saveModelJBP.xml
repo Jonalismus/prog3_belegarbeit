@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="17.0.5" class="java.beans.XMLDecoder">
+<java version="19.0.1" class="java.beans.XMLDecoder">
  <object class="geschaeftslogik.Model">
   <int>10</int>
   <object class="java.util.LinkedList">
@@ -32,11 +32,11 @@
         <class>java.time.Month</class>
         <string>MARCH</string>
        </object>
-       <int>9</int>
-       <int>12</int>
-       <int>48</int>
-       <int>38</int>
-       <int>27329500</int>
+       <int>11</int>
+       <int>15</int>
+       <int>11</int>
+       <int>25</int>
+       <int>791757200</int>
       </object>
      </void>
      <void property="fachnummer">
@@ -44,7 +44,7 @@
      </void>
      <void property="inspektionsdatum">
       <object class="java.util.Date">
-       <long>1678362518000</long>
+       <long>1678544120000</long>
       </object>
      </void>
     </object>
@@ -67,11 +67,11 @@
       <object class="java.time.LocalDateTime" method="of">
        <int>2023</int>
        <object idref="Month0"/>
-       <int>9</int>
-       <int>12</int>
-       <int>48</int>
-       <int>48</int>
-       <int>165847700</int>
+       <int>11</int>
+       <int>15</int>
+       <int>11</int>
+       <int>34</int>
+       <int>549609600</int>
       </object>
      </void>
      <void property="fachnummer">
@@ -79,7 +79,7 @@
      </void>
      <void property="inspektionsdatum">
       <object class="java.util.Date">
-       <long>1678362528000</long>
+       <long>1678543894000</long>
       </object>
      </void>
     </object>
@@ -102,11 +102,11 @@
       <object class="java.time.LocalDateTime" method="of">
        <int>2023</int>
        <object idref="Month0"/>
-       <int>9</int>
+       <int>11</int>
+       <int>15</int>
        <int>12</int>
-       <int>48</int>
-       <int>58</int>
-       <int>971632900</int>
+       <int>16</int>
+       <int>168551800</int>
       </object>
      </void>
      <void property="fachnummer">
@@ -114,7 +114,52 @@
      </void>
      <void property="inspektionsdatum">
       <object class="java.util.Date">
-       <long>1678362538000</long>
+       <long>1678543936000</long>
+      </object>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="geschaeftslogik.Obstkuchen">
+     <object class="geschaeftslogik.Hersteller">
+      <string>Hersteller1</string>
+     </object>
+     <object class="java.math.BigDecimal">
+      <string>2.50</string>
+     </object>
+     <int>200</int>
+     <object class="java.time.Duration" method="parse">
+      <string>PT480H</string>
+     </object>
+     <object class="java.util.ArrayList">
+      <void method="add">
+       <object class="java.lang.Enum" method="valueOf">
+        <class>vertrag.Allergen</class>
+        <string>Haselnuss</string>
+       </object>
+      </void>
+      <void method="add">
+       <null/>
+      </void>
+     </object>
+     <string>Erdbeere</string>
+     <void property="einfuegedatum">
+      <object class="java.time.LocalDateTime" method="of">
+       <int>2023</int>
+       <object idref="Month0"/>
+       <int>11</int>
+       <int>15</int>
+       <int>13</int>
+       <int>42</int>
+       <int>317514300</int>
+      </object>
+     </void>
+     <void property="fachnummer">
+      <int>4</int>
+     </void>
+     <void property="inspektionsdatum">
+      <object class="java.util.Date">
+       <long>1678544022000</long>
       </object>
      </void>
     </object>
@@ -124,16 +169,19 @@
    <void method="add">
     <object class="geschaeftslogik.Hersteller">
      <string>Hersteller1</string>
+     <void property="anzahlKuchen">
+      <int>3</int>
+     </void>
     </object>
    </void>
    <void method="add">
     <object class="geschaeftslogik.Hersteller">
-     <string>hersteller2</string>
+     <string>Oetker</string>
     </object>
    </void>
    <void method="add">
     <object class="geschaeftslogik.Hersteller">
-     <string>Hersteller3</string>
+     <string>Bahlsen</string>
     </object>
    </void>
   </object>

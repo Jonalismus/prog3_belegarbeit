@@ -1,11 +1,9 @@
 package cli.modus;
 
-import cli.infrastructure.ModelSpeichern.ModelSpeichernLadenEvent;
 import cli.infrastructure.ModelSpeichern.ModelSpeichernEventHandler;
+import cli.infrastructure.ModelSpeichern.ModelSpeichernLadenEvent;
 
-import java.util.Scanner;
-
-public class SerialisierungsModus {
+public class SerialisierungsModus implements Modus{
 
     private final ModelSpeichernEventHandler addHandlerSpeichern;
 
@@ -13,12 +11,8 @@ public class SerialisierungsModus {
         this.addHandlerSpeichern = addHandlerSpeichern;
     }
 
-    public void start() {
-        Scanner scanner = new Scanner(System.in);
-        String input;
-
-        input = scanner.nextLine();
-
+    @Override
+    public void handleInput(String input) {
         switch (input){
             case "saveJOS", "loadJOS", "saveJBP", "loadJBP" -> {
                 ModelSpeichernLadenEvent event = new ModelSpeichernLadenEvent(this, input);
@@ -27,7 +21,5 @@ public class SerialisierungsModus {
                 }
             }
         }
-
     }
-
 }
