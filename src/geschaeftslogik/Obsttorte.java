@@ -32,6 +32,8 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte, Ser
     private Date inspektionsdatum;
     private long verbleibendeHaltbarkeit;
 
+    private String kuchentyp;
+
 
     public Obsttorte(Hersteller hersteller, BigDecimal preis, int naehrwert, Duration haltbarkeit, Collection<Allergen> allergene, String sorteEins, String sorteZwei) {
         this.hersteller = hersteller;
@@ -128,5 +130,8 @@ public class Obsttorte implements Verkaufsobjekt, Kuchen, vertrag.Obsttorte, Ser
         return "[Obsttorte] [Fachnummer: " + fachnummer + "] [Inspektionsdatum: " + inspektionsdatum + "] [verbleibende Haltbarkeit in Tagen: " + verbleibendeHaltbarkeit + "]";
     }
 
+    public String getKuchentyp() {
+        return "Obsttorte";
+    }
 
 }

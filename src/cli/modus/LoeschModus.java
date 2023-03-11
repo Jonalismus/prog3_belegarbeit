@@ -6,9 +6,7 @@ import cli.infrastructure.HerstellerLoeschen.HerstellerLoeschenEventHandler;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEvent;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
 
-import java.util.Scanner;
-
-public class LoeschModus {
+public class LoeschModus implements Modus {
 
     private final HerstellerLoeschenEventHandler addHandlerHerstellerLoeschen;
     private final KuchenLoeschenEventHandler addHandlerKuchenLoeschen;
@@ -18,12 +16,8 @@ public class LoeschModus {
         this.addHandlerKuchenLoeschen = addHandlerKuchenLoeschen;
     }
 
-    public void start() {
-        Scanner scanner = new Scanner(System.in);
-        String input;
-
-        input = scanner.nextLine();
-
+    @Override
+    public void handleInput(String input) {
         if (nummerPruefen(input)) {
             // Kuchen nach Fachnummer loeschen
             KuchenLoeschenEvent event = new KuchenLoeschenEvent(this, input);

@@ -6,6 +6,7 @@ public enum Allergen {
     Haselnuss("Haselnuss"),
     Sesamsamen("Sesamsamen");
 
+
     private final String text;
 
     Allergen(String text) {
@@ -20,4 +21,9 @@ public enum Allergen {
         }
         return null;
     }
+
+    public String getText() {
+        return text;
+    }
+
 }

@@ -21,7 +21,6 @@ import cli.modus.*;
 import geschaeftslogik.Hersteller;
 import observer.AllergenObserver;
 import geschaeftslogik.Model;
-import serialisierung.SingletonModel;
 import vertrag.Verkaufsobjekt;
 
 import java.util.LinkedList;
@@ -42,7 +41,7 @@ public class AlternativesCLI {
                     return;
                 }
             }
-            if (kapazitaet > 0) {
+            if (kapazitaet >= 0) {
                 LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
                 LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
                 Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);
@@ -112,8 +111,6 @@ public class AlternativesCLI {
                 addHandlerModelSpeichern.add(infoListenerModelSpeichern);
 
                 SerialisierungsModus serialisierungsModus = new SerialisierungsModus(addHandlerModelSpeichern);
-
-                SingletonModel.getInstance().setModel(model);
 
                 HauptCLI hauptCLI = new HauptCLI(einfuegenModus, loeschModus, aenderungsModus, anzeigeModus, serialisierungsModus);
                 hauptCLI.start();

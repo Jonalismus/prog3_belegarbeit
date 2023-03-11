@@ -48,7 +48,7 @@ public class CLImain {
                  */
             }
         }
-        if (kapazitaet > 0) {
+        if (kapazitaet >= 0) {
             LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
             LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
             Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);

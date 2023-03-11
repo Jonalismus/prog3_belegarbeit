@@ -5,9 +5,7 @@ import cli.infrastructure.HerstellerEinfuegen.HerstellerEinfuegenEventHandler;
 import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEvent;
 import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventHandler;
 
-import java.util.Scanner;
-
-public class EinfuegenModus {
+public class EinfuegenModus implements Modus {
 
     private final HerstellerEinfuegenEventHandler addHandlerHersteller;
     private final KuchenEinfuegenEventHandler addHandlerKuchen;
@@ -17,12 +15,9 @@ public class EinfuegenModus {
         this.addHandlerKuchen = addHandlerKuchen;
     }
 
-    public void start() {
-        Scanner scanner = new Scanner(System.in);
-        String input;
 
-        input = scanner.nextLine();
-
+    @Override
+    public void handleInput(String input) {
         String[] commandParts = input.split(" ");
 
         if (commandParts.length <= 4) {

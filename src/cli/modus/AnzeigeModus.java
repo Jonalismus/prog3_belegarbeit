@@ -7,10 +7,7 @@ import cli.infrastructure.HerstellerAnzeigen.HerstellerAnzeigenEventHandler;
 import cli.infrastructure.KuchenAnzeigen.KuchenAnzeigenEvent;
 import cli.infrastructure.KuchenAnzeigen.KuchenAnzeigenEventHandler;
 
-
-import java.util.Scanner;
-
-public class AnzeigeModus {
+public class AnzeigeModus implements Modus{
 
     private final HerstellerAnzeigenEventHandler addHandlerHerstellerAnzeigen;
     private final KuchenAnzeigenEventHandler addHandlerKuchenAnzeigen;
@@ -22,36 +19,31 @@ public class AnzeigeModus {
         this.addHandlerAllergeneAnzeigen = addHandlerAllergeneAnzeigen;
     }
 
-
-    // Bei falscher Eingabe wird nicht in die HauptCli gewechselt
-    public void start() {
-        Scanner scanner = new Scanner(System.in);
-        String input;
-
-        input = scanner.nextLine();
-
+    @Override
+    public void handleInput(String input) {
         switch (input.toLowerCase()) {
             case "kremkuchen", "obstkuchen", "obsttorte", "kuchen" -> {
                 // Kremkuchen, Obstkuchen, Obsttorte oder alle Kuchen anzeigen
-                KuchenAnzeigenEvent event = new KuchenAnzeigenEvent(this, input);
+                KuchenAnzeigenEvent kuchenEvent = new KuchenAnzeigenEvent(this, input);
                 if (null != this.addHandlerKuchenAnzeigen) {
-                    this.addHandlerKuchenAnzeigen.handle(event);
+                    this.addHandlerKuchenAnzeigen.handle(kuchenEvent);
                 }
             }
             case "allergene i", "allergene e" -> {
-                // Alle enthaltenen oder nicht enthaltene Allergene im Automaten  anzeigen
-                AllergeneAnzeigenEvent event = new AllergeneAnzeigenEvent(this, input);
+                // Alle enthaltenen oder nicht enthaltene Allergene im Automaten anzeigen
+                AllergeneAnzeigenEvent allergeneEvent = new AllergeneAnzeigenEvent(this, input);
                 if (null != this.addHandlerAllergeneAnzeigen) {
-                    this.addHandlerAllergeneAnzeigen.handle(event);
+                    this.addHandlerAllergeneAnzeigen.handle(allergeneEvent);
                 }
             }
             case "hersteller" -> {
-                // Alle Hersteller im Automaten  anzeigen
-                HerstellerAnzeigenEvent event = new HerstellerAnzeigenEvent(this, input);
+                // Alle Hersteller im Automaten anzeigen
+                HerstellerAnzeigenEvent herstellerEvent = new HerstellerAnzeigenEvent(this, input);
                 if (null != this.addHandlerHerstellerAnzeigen) {
-                    this.addHandlerHerstellerAnzeigen.handle(event);
+                    this.addHandlerHerstellerAnzeigen.handle(herstellerEvent);
                 }
             }
+            default -> System.out.println("Ungueltiger Befehl. Bitte versuchen Sie es erneut");
         }
     }
 
