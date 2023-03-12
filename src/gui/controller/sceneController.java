@@ -9,6 +9,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -350,6 +354,63 @@ public class sceneController implements Initializable {
         newStage.show();
     }
 
+    public void dragAndDrop(){
+        fachnummer.setCellFactory(column -> new TableCell<>() {
+            {
+                setOnDragDetected(event -> {
+                    if (!isEmpty()) {
+                        Dragboard db = startDragAndDrop(TransferMode.MOVE);
+                        ClipboardContent inhalt = new ClipboardContent();
+                        inhalt.put(DataFormat.PLAIN_TEXT, getIndex());
+                        db.setContent(inhalt);
+                        event.consume();
+                    }
+                });
+                setOnDragOver(event -> {
+                    Dragboard db = event.getDragboard();
+                    if (db.hasContent(DataFormat.PLAIN_TEXT)) {
+                        int draggedIndex = (int) db.getContent(DataFormat.PLAIN_TEXT);
+                        if (draggedIndex != getIndex()) {
+                            event.acceptTransferModes(TransferMode.MOVE);
+                            event.consume();
+                        }
+                    }
+                });
+                setOnDragDropped(event -> {
+                    Dragboard db = event.getDragboard();
+                    if (db.hasContent(DataFormat.PLAIN_TEXT)) {
+                        int draggedIndex = (int) db.getContent(DataFormat.PLAIN_TEXT);
+                        Verkaufsobjekt draggedData = kuchenTable.getItems().get(draggedIndex);
+                        Verkaufsobjekt dropData = getTableRow().getItem();
+                        int dropIndex = getIndex();
+                        if (draggedData != null && dropData != null) {
+                            int temp = draggedData.getFachnummer();
+                            draggedData.setFachnummer(dropData.getFachnummer());
+                            dropData.setFachnummer(temp);
+                            kuchenTable.getItems().set(draggedIndex, dropData);
+                            kuchenTable.getItems().set(dropIndex, draggedData);
+                            event.setDropCompleted(true);
+                            kuchenTable.getSelectionModel().select(dropIndex);
+                        }
+                        event.consume();
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? "" : getString());
+                setGraphic(null);
+            }
+
+            private String getString() {
+                return getItem() == null ? "" : getItem().toString();
+            }
+        });
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         herstellerName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -362,5 +423,7 @@ public class sceneController implements Initializable {
         fachnummer.setCellValueFactory(new PropertyValueFactory<>("fachnummer"));
         allergeneVorhanden.setCellValueFactory(new PropertyValueFactory<>("text"));
         allergeneNichtVorhanden.setCellValueFactory(new PropertyValueFactory<>("text"));
+        tableUpdate();
+        dragAndDrop();
     }
 }

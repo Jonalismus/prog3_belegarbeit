@@ -135,7 +135,7 @@ public class AddListener implements HerstellerEinfuegenEventListener, KuchenEinf
     public void onHerstellerAnzeigenEvent(HerstellerAnzeigenEvent event) {
         List<Hersteller> res =  SingletonModel.getInstance().getModel().abrufenDerHersteller();
         for(Hersteller h : res){
-            System.out.println(h);
+            System.out.println("[" + h + "] [Anzahl Kuchen: " + h.getAnzahlKuchen() + "]");
         }
     }
 

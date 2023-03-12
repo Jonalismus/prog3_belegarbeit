@@ -30,7 +30,7 @@ public class Hersteller implements vertrag.Hersteller, Serializable {
 
     //Test schreiben todo
     public String toString() {
-        return "[" + name + "] [Anzahl Kuchen: " + anzahlKuchen + "]";
+        return name;
     }
 
     /* Code copy
