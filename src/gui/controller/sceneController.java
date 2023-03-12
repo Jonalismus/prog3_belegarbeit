@@ -56,23 +56,18 @@ public class sceneController implements Initializable {
     @FXML
     private TableColumn<Verkaufsobjekt, Integer> fachnummer;
 
-    //Tabeller für Allergene
+    //Tabellen für Allergene
     @FXML
-    private TableView<Allergen> allergenTable;
+    private TableView<Allergen> allergenTableEnthalten;
+
+    @FXML
+    private TableView<Allergen> allergenTableNichtEnthalten;
 
     @FXML
     private TableColumn<Verkaufsobjekt, Collection<Allergen>> allergeneVorhanden;
 
     @FXML
     private TableColumn<Verkaufsobjekt, Collection<Allergen>> allergeneNichtVorhanden;
-
-    @FXML
-    private TextField textField;
-
-    @FXML
-    private TextArea label;
-
-    String hersteller;
 
 
     private final Model model;
@@ -108,18 +103,7 @@ public class sceneController implements Initializable {
                 newStage.close();
             });
 
-            abbrechenButton.setOnAction(e -> {
-                newStage.close();
-            });
-
-            VBox vbox = new VBox(text, textField, new HBox(okButton, abbrechenButton));
-            vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing(10);
-            StackPane root = new StackPane(vbox);
-
-            Scene scene = new Scene(root, 400, 100);
-            newStage.setScene(scene);
-            newStage.show();
+            buildStageOne(newStage, text, textField, okButton, abbrechenButton);
         });
     }
 
@@ -149,18 +133,7 @@ public class sceneController implements Initializable {
                 newStage.close();
             });
 
-            abbrechenButton.setOnAction(e -> {
-                newStage.close();
-            });
-
-            VBox vbox = new VBox(text, textField, new HBox(okButton, abbrechenButton));
-            vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing(10);
-            StackPane root = new StackPane(vbox);
-
-            Scene scene = new Scene(root, 400, 100);
-            newStage.setScene(scene);
-            newStage.show();
+            buildStageOne(newStage, text, textField, okButton, abbrechenButton);
         });
     }
 
@@ -242,20 +215,10 @@ public class sceneController implements Initializable {
                 newStage.close();
             });
 
-            abbrechenButton.setOnAction(e -> {
-                newStage.close();
-            });
-
-            VBox vbox = new VBox(text, textField, new HBox(okButton, abbrechenButton));
-            vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing(10);
-            StackPane root = new StackPane(vbox);
-
-            Scene scene = new Scene(root, 600, 100);
-            newStage.setScene(scene);
-            newStage.show();
+            buildStageTwo(newStage, text, textField, okButton, abbrechenButton);
         });
     }
+
 
     @FXML
     public void KuchenLoeschen() {
@@ -286,18 +249,7 @@ public class sceneController implements Initializable {
                 newStage.close();
             });
 
-            abbrechenButton.setOnAction(e -> {
-                newStage.close();
-            });
-
-            VBox vbox = new VBox(text, textField, new HBox(okButton, abbrechenButton));
-            vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing(10);
-            StackPane root = new StackPane(vbox);
-
-            Scene scene = new Scene(root, 600, 100);
-            newStage.setScene(scene);
-            newStage.show();
+            buildStageTwo(newStage, text, textField, okButton, abbrechenButton);
         });
 
     }
@@ -315,19 +267,19 @@ public class sceneController implements Initializable {
         herstellerTable.setItems(listHersteller);
 
 
-        allergenTable.getItems().clear();
+        allergenTableEnthalten.getItems().clear();
         List<Allergen> allergeneVorhanden = model.allergeneAbrufen(true);
-        ObservableList<Allergen> listeAllergenVorhanden = allergenTable.getItems();
+        ObservableList<Allergen> listeAllergenVorhanden = allergenTableEnthalten.getItems();
         listeAllergenVorhanden.addAll(allergeneVorhanden);
-        allergenTable.setItems(listeAllergenVorhanden);
+        allergenTableEnthalten.setItems(listeAllergenVorhanden);
 
 
 
-        allergenTable.getItems().clear();
+        allergenTableNichtEnthalten.getItems().clear();
         List<Allergen> allergeneNichtVorhanden = model.allergeneAbrufen(false);
-        ObservableList<Allergen> listeAllergenNichtVorhanden = allergenTable.getItems();
+        ObservableList<Allergen> listeAllergenNichtVorhanden = allergenTableNichtEnthalten.getItems();
         listeAllergenNichtVorhanden.addAll(allergeneNichtVorhanden);
-        allergenTable.setItems(listeAllergenNichtVorhanden);
+        allergenTableNichtEnthalten.setItems(listeAllergenNichtVorhanden);
     }
 
     @FXML
@@ -358,9 +310,7 @@ public class sceneController implements Initializable {
                 newStage.close();
             });
 
-            abbrechenButton.setOnAction(e -> {
-                newStage.close();
-            });
+            abbrechenButton.setOnAction(e -> newStage.close());
 
             VBox vbox = new VBox(text, textField, new HBox(okButton, abbrechenButton));
             vbox.setAlignment(Pos.CENTER);
@@ -373,6 +323,32 @@ public class sceneController implements Initializable {
         });
     }
 
+
+    private void buildStageOne(Stage newStage, Text text, TextField textField, Button okButton, Button abbrechenButton) {
+        abbrechenButton.setOnAction(e -> newStage.close());
+
+        VBox vbox = new VBox(text, textField, new HBox(okButton, abbrechenButton));
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+        StackPane root = new StackPane(vbox);
+
+        Scene scene = new Scene(root, 400, 100);
+        newStage.setScene(scene);
+        newStage.show();
+    }
+
+    private void buildStageTwo(Stage newStage, Text text, TextField textField, Button okButton, Button abbrechenButton) {
+        abbrechenButton.setOnAction(e -> newStage.close());
+
+        VBox vbox = new VBox(text, textField, new HBox(okButton, abbrechenButton));
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+        StackPane root = new StackPane(vbox);
+
+        Scene scene = new Scene(root, 600, 100);
+        newStage.setScene(scene);
+        newStage.show();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
