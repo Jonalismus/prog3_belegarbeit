@@ -38,18 +38,6 @@
             </columns>
         </TableView>
     </center>
-    <right>
-        <TableView fx:id="allergenTable" prefHeight="596.0" prefWidth="167.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn prefWidth="166.0" text="Allergene">
-                    <columns>
-                        <TableColumn fx:id="allergeneVorhanden" prefWidth="87.0" text="enthalten" />
-                        <TableColumn fx:id="allergeneNichtVorhanden" prefWidth="79.0" text="nicht enthalten" />
-                    </columns>
-                </TableColumn>
-            </columns>
-        </TableView>
-    </right>
     <bottom>
         <SplitPane orientation="VERTICAL" prefHeight="153.0" prefWidth="1001.0" BorderPane.alignment="CENTER">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="120.0" prefWidth="999.0">
@@ -63,4 +51,18 @@
             </AnchorPane>
         </SplitPane>
     </bottom>
+   <right>
+       <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+           <TableView fx:id="allergenTableEnthalten" prefHeight="200.0" prefWidth="200.0">
+               <columns>
+                   <TableColumn fx:id="allergeneVorhanden" prefWidth="96.0" text="Allergene (i)"/>
+               </columns>
+           </TableView>
+           <TableView fx:id="allergenTableNichtEnthalten" prefHeight="500.0" prefWidth="162.0">
+               <columns>
+                   <TableColumn fx:id="allergeneNichtVorhanden" prefWidth="96.0" text="Allergene (e)"/>
+               </columns>
+           </TableView>
+       </SplitPane>
+   </right>
 </BorderPane>
