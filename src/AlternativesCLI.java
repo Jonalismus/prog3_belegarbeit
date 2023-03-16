@@ -15,7 +15,7 @@ import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
 import cli.infrastructure.ModelSpeichern.ModelSpeichernEventHandler;
 import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
-import cli.listener.AddListener;
+import cli.listener.Listener;
 import cli.listener.InfoListener;
 import cli.modus.*;
 import geschaeftslogik.Hersteller;
@@ -52,13 +52,13 @@ public class AlternativesCLI {
 
                 //Kuchen Einfuegen Event
                 KuchenEinfuegenEventHandler addHandlerKuchen = new KuchenEinfuegenEventHandler();
-                KuchenEinfuegenEventListener addListenerKuchen = new AddListener(model);
+                KuchenEinfuegenEventListener addListenerKuchen = new Listener(model);
                 addHandlerKuchen.add(addListenerKuchen);
                 KuchenEinfuegenEventListener infoListenerKuchen = new InfoListener();
                 addHandlerKuchen.add(infoListenerKuchen);
                 //Hersteller Einfuegen Event
                 HerstellerEinfuegenEventHandler addHandlerHersteller = new HerstellerEinfuegenEventHandler();
-                HerstellerEinfuegenEventListener addListenerHersteller = new AddListener(model);
+                HerstellerEinfuegenEventListener addListenerHersteller = new Listener(model);
                 addHandlerHersteller.add(addListenerHersteller);
                 HerstellerEinfuegenEventListener infoListenerHersteller = new InfoListener();
                 addHandlerHersteller.add(infoListenerHersteller);
@@ -67,7 +67,7 @@ public class AlternativesCLI {
 
                 //Kuchen Loeschen Event
                 KuchenLoeschenEventHandler addHandlerKuchenLoeschen = new KuchenLoeschenEventHandler();
-                KuchenLoeschenEventListener addListenerKuchenLoeschen = new AddListener(model);
+                KuchenLoeschenEventListener addListenerKuchenLoeschen = new Listener(model);
                 addHandlerKuchenLoeschen.add(addListenerKuchenLoeschen);
                 KuchenLoeschenEventListener infoListenerKuchenLoeschen = new InfoListener();
                 addHandlerKuchenLoeschen.add(infoListenerKuchenLoeschen);
@@ -78,7 +78,7 @@ public class AlternativesCLI {
 
                 //Inspektionsdatum setzen Event
                 InspektionsEventHandler addHandlerInspektion = new InspektionsEventHandler();
-                InspektionsEventListener addListenerInspektion = new AddListener(model);
+                InspektionsEventListener addListenerInspektion = new Listener(model);
                 addHandlerInspektion.add(addListenerInspektion);
                 InspektionsEventListener infoListenerInspektion = new InfoListener();
                 addHandlerInspektion.add(infoListenerInspektion);
@@ -90,13 +90,13 @@ public class AlternativesCLI {
 
                 //Kuchen anzeigen Event
                 KuchenAnzeigenEventHandler addHandlerKuchenAnzeigen = new KuchenAnzeigenEventHandler();
-                KuchenAnzeigenEventListener addListenerKuchenAnzeigen = new AddListener(model);
+                KuchenAnzeigenEventListener addListenerKuchenAnzeigen = new Listener(model);
                 addHandlerKuchenAnzeigen.add(addListenerKuchenAnzeigen);
                 KuchenAnzeigenEventListener infoListenerKuchenAnzeigen = new InfoListener();
                 addHandlerKuchenAnzeigen.add(infoListenerKuchenAnzeigen);
                 //Hersteller anzeigen Event
                 HerstellerAnzeigenEventHandler addHandlerHerstellerAnzeigen = new HerstellerAnzeigenEventHandler();
-                HerstellerAnzeigenEventListener addListenerHerstellerAnzeigen = new AddListener(model);
+                HerstellerAnzeigenEventListener addListenerHerstellerAnzeigen = new Listener(model);
                 addHandlerHerstellerAnzeigen.add(addListenerHerstellerAnzeigen);
                 HerstellerAnzeigenEventListener infoListenerHerstellerAnzeigen = new InfoListener();
                 addHandlerHerstellerAnzeigen.add(infoListenerHerstellerAnzeigen);
@@ -105,7 +105,7 @@ public class AlternativesCLI {
 
                 //Mode speichern
                 ModelSpeichernEventHandler addHandlerModelSpeichern = new ModelSpeichernEventHandler();
-                ModelSpeichernEventListener addListenerModelSpeichern = new AddListener(model);
+                ModelSpeichernEventListener addListenerModelSpeichern = new Listener(model);
                 addHandlerModelSpeichern.add(addListenerModelSpeichern);
                 ModelSpeichernEventListener infoListenerModelSpeichern = new InfoListener();
                 addHandlerModelSpeichern.add(infoListenerModelSpeichern);

@@ -1,7 +1,7 @@
 package cli;
 
-
 import cli.modus.*;
+
 
 import java.util.Scanner;
 

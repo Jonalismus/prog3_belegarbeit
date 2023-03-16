@@ -39,7 +39,6 @@ class ModelTest {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
-
     }
 
     // Test ueberprueft, ob ein Hersteller erfolgreich hinzugefuegt werden kann

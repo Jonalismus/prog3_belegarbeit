@@ -12,7 +12,7 @@ import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventHandler;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
 import cli.infrastructure.ModelSpeichern.ModelSpeichernEventHandler;
 import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
-import cli.listener.AddListener;
+import cli.listener.Listener;
 import cli.listener.InfoListener;
 import cli.modus.*;
 import geschaeftslogik.Hersteller;
@@ -44,7 +44,7 @@ class CLITest {
         KuchenEinfuegenEventHandler addHandlerKuchen = new KuchenEinfuegenEventHandler();
         //Hersteller Einfuegen Event
         HerstellerEinfuegenEventHandler addHandlerHersteller = new HerstellerEinfuegenEventHandler();
-        HerstellerEinfuegenEventListener addListenerHersteller = new AddListener(model);
+        HerstellerEinfuegenEventListener addListenerHersteller = new Listener(model);
         addHandlerHersteller.add(addListenerHersteller);
         HerstellerEinfuegenEventListener infoListenerHersteller = new InfoListener();
         addHandlerHersteller.add(infoListenerHersteller);
@@ -69,7 +69,7 @@ class CLITest {
         KuchenAnzeigenEventHandler addHandlerKuchenAnzeigen = new KuchenAnzeigenEventHandler();
         //Hersteller anzeigen Event
         HerstellerAnzeigenEventHandler addHandlerHerstellerAnzeigen = new HerstellerAnzeigenEventHandler();
-        HerstellerAnzeigenEventListener addListenerHerstellerAnzeigen = new AddListener(model);
+        HerstellerAnzeigenEventListener addListenerHerstellerAnzeigen = new Listener(model);
         addHandlerHerstellerAnzeigen.add(addListenerHerstellerAnzeigen);
 
 
@@ -77,7 +77,7 @@ class CLITest {
 
         //Mode speichern
         ModelSpeichernEventHandler addHandlerModelSpeichern = new ModelSpeichernEventHandler();
-        ModelSpeichernEventListener addListenerModelSpeichern = new AddListener(model);
+        ModelSpeichernEventListener addListenerModelSpeichern = new Listener(model);
         addHandlerModelSpeichern.add(addListenerModelSpeichern);
 
         SerialisierungsModus serialisierungsModus = new SerialisierungsModus(addHandlerModelSpeichern);

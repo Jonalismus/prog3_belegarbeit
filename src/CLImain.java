@@ -17,40 +17,48 @@ import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
 import cli.infrastructure.ModelSpeichern.ModelSpeichernEventHandler;
 import cli.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
-import cli.listener.AddListener;
+import cli.listener.Listener;
 import cli.listener.InfoListener;
 import cli.modus.*;
 import geschaeftslogik.Hersteller;
 import geschaeftslogik.Model;
+import net.TCP.ClientTCP;
+import net.UDP.ClientUDP;
 import observer.AllergenObserver;
 import observer.KapazitaetsObserver;
 import vertrag.Verkaufsobjekt;
 
+import java.io.*;
 import java.util.LinkedList;
 
 public class CLImain {
-    //Test Eingabe Kremkuchen Hersteller1 4,50 386 36 Gluten,Erdnuss Butter //  Obsttorte Hersteller2 7,50 632 24 Gluten Apfel Sahne
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         int kapazitaet = 0;
-       // boolean TCP = false; todo
-       // boolean UDP = false; todo
+        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+        boolean TCP = false;
+        boolean UDP = false;
         for (String arg : args) {
             try {
                 kapazitaet = Integer.parseInt(arg);
             } catch (NumberFormatException e) {
-                /* todo
                 if (arg.equalsIgnoreCase("TCP")) {
                     TCP = true;
-                } else if (arg.equalsIgnoreCase("UDP")) {
+                }
+                else if (arg.equalsIgnoreCase("UDP")) {
                     UDP = true;
                 }
-
-                 */
             }
         }
+        if (TCP) {
+            ClientTCP client = new ClientTCP();
+            client.start();
+        }
+        if (UDP) {
+            ClientUDP clientUDP = new ClientUDP();
+            clientUDP.start();
+        }
         if (kapazitaet >= 0) {
-            LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
-            LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
             Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);
             //Observer beim Model registrieren
             KapazitaetsObserver kapazitaetsObserver = new KapazitaetsObserver(model);
@@ -60,13 +68,13 @@ public class CLImain {
 
             //Kuchen Einfuegen Event
             KuchenEinfuegenEventHandler addHandlerKuchen = new KuchenEinfuegenEventHandler();
-            KuchenEinfuegenEventListener addListenerKuchen = new AddListener(model);
+            KuchenEinfuegenEventListener addListenerKuchen = new Listener(model);
             addHandlerKuchen.add(addListenerKuchen);
             KuchenEinfuegenEventListener infoListenerKuchen = new InfoListener();
             addHandlerKuchen.add(infoListenerKuchen);
             //Hersteller Einfuegen Event
             HerstellerEinfuegenEventHandler addHandlerHersteller = new HerstellerEinfuegenEventHandler();
-            HerstellerEinfuegenEventListener addListenerHersteller = new AddListener(model);
+            HerstellerEinfuegenEventListener addListenerHersteller = new Listener(model);
             addHandlerHersteller.add(addListenerHersteller);
             HerstellerEinfuegenEventListener infoListenerHersteller = new InfoListener();
             addHandlerHersteller.add(infoListenerHersteller);
@@ -75,13 +83,13 @@ public class CLImain {
 
             //Kuchen Loeschen Event
             KuchenLoeschenEventHandler addHandlerKuchenLoeschen = new KuchenLoeschenEventHandler();
-            KuchenLoeschenEventListener addListenerKuchenLoeschen = new AddListener(model);
+            KuchenLoeschenEventListener addListenerKuchenLoeschen = new Listener(model);
             addHandlerKuchenLoeschen.add(addListenerKuchenLoeschen);
             KuchenLoeschenEventListener infoListenerKuchenLoeschen = new InfoListener();
             addHandlerKuchenLoeschen.add(infoListenerKuchenLoeschen);
             //Hersteller Loeschen Event
             HerstellerLoeschenEventHandler addHandlerHerstellerLoeschen = new HerstellerLoeschenEventHandler();
-            HerstellerLoeschenEventListener addListenerHerstellerLoeschen = new AddListener(model);
+            HerstellerLoeschenEventListener addListenerHerstellerLoeschen = new Listener(model);
             addHandlerHerstellerLoeschen.add(addListenerHerstellerLoeschen);
             HerstellerLoeschenEventListener infoListenerHerstellerLoeschen = new InfoListener();
             addHandlerHerstellerLoeschen.add(infoListenerHerstellerLoeschen);
@@ -90,7 +98,7 @@ public class CLImain {
 
             //Inspektionsdatum setzen Event
             InspektionsEventHandler addHandlerInspektion = new InspektionsEventHandler();
-            InspektionsEventListener addListenerInspektion = new AddListener(model);
+            InspektionsEventListener addListenerInspektion = new Listener(model);
             addHandlerInspektion.add(addListenerInspektion);
             InspektionsEventListener infoListenerInspektion = new InfoListener();
             addHandlerInspektion.add(infoListenerInspektion);
@@ -99,19 +107,19 @@ public class CLImain {
 
             //Allergene anzeigen Event
             AllergeneAnzeigenEventHandler addHandlerAllergene = new AllergeneAnzeigenEventHandler();
-            AllergeneAnzeigenEventListener addListenerAllergene = new AddListener(model);
+            AllergeneAnzeigenEventListener addListenerAllergene = new Listener(model);
             addHandlerAllergene.add(addListenerAllergene);
             AllergeneAnzeigenEventListener infoListenerAllergene = new InfoListener();
             addHandlerAllergene.add(infoListenerAllergene);
             //Kuchen anzeigen Event
             KuchenAnzeigenEventHandler addHandlerKuchenAnzeigen = new KuchenAnzeigenEventHandler();
-            KuchenAnzeigenEventListener addListenerKuchenAnzeigen = new AddListener(model);
+            KuchenAnzeigenEventListener addListenerKuchenAnzeigen = new Listener(model);
             addHandlerKuchenAnzeigen.add(addListenerKuchenAnzeigen);
             KuchenAnzeigenEventListener infoListenerKuchenAnzeigen = new InfoListener();
             addHandlerKuchenAnzeigen.add(infoListenerKuchenAnzeigen);
             //Hersteller anzeigen Event
             HerstellerAnzeigenEventHandler addHandlerHerstellerAnzeigen = new HerstellerAnzeigenEventHandler();
-            HerstellerAnzeigenEventListener addListenerHerstellerAnzeigen = new AddListener(model);
+            HerstellerAnzeigenEventListener addListenerHerstellerAnzeigen = new Listener(model);
             addHandlerHerstellerAnzeigen.add(addListenerHerstellerAnzeigen);
             HerstellerAnzeigenEventListener infoListenerHerstellerAnzeigen = new InfoListener();
             addHandlerHerstellerAnzeigen.add(infoListenerHerstellerAnzeigen);
@@ -120,7 +128,7 @@ public class CLImain {
 
             //Model speichern
             ModelSpeichernEventHandler addHandlerModelSpeichern = new ModelSpeichernEventHandler();
-            ModelSpeichernEventListener addListenerModelSpeichern = new AddListener(model);
+            ModelSpeichernEventListener addListenerModelSpeichern = new Listener(model);
             addHandlerModelSpeichern.add(addListenerModelSpeichern);
             ModelSpeichernEventListener infoListenerModelSpeichern = new InfoListener();
             addHandlerModelSpeichern.add(infoListenerModelSpeichern);
@@ -130,18 +138,5 @@ public class CLImain {
             HauptCLI hauptCLI = new HauptCLI(einfuegenModus, loeschModus, aenderungsModus, anzeigeModus, serialisierungsModus);
             hauptCLI.start();
         }
-
-        /* todo
-        if (TCP) {
-            // Start TCP client
-        }
-
-        if (UDP) {
-            // Start UDP client
-        }
-
-         */
-
-
     }
 }

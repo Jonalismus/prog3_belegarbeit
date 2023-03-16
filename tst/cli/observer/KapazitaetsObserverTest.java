@@ -16,7 +16,7 @@ import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventHandler;
 import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventListener;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
 import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
-import cli.listener.AddListener;
+import cli.listener.Listener;
 import cli.listener.InfoListener;
 import cli.modus.AenderungsModus;
 import cli.modus.AnzeigeModus;
@@ -70,13 +70,13 @@ class KapazitaetsObserverTest {
 
         //Kuchen Einfuegen Event
         KuchenEinfuegenEventHandler addHandlerKuchen = new KuchenEinfuegenEventHandler();
-        KuchenEinfuegenEventListener addListenerKuchen = new AddListener(model);
+        KuchenEinfuegenEventListener addListenerKuchen = new Listener(model);
         addHandlerKuchen.add(addListenerKuchen);
         KuchenEinfuegenEventListener infoListenerKuchen = new InfoListener();
         addHandlerKuchen.add(infoListenerKuchen);
         //Hersteller Einfuegen Event
         HerstellerEinfuegenEventHandler addHandlerHersteller = new HerstellerEinfuegenEventHandler();
-        HerstellerEinfuegenEventListener addListenerHersteller = new AddListener(model);
+        HerstellerEinfuegenEventListener addListenerHersteller = new Listener(model);
         addHandlerHersteller.add(addListenerHersteller);
         HerstellerEinfuegenEventListener infoListenerHersteller = new InfoListener();
         addHandlerHersteller.add(infoListenerHersteller);
@@ -85,13 +85,13 @@ class KapazitaetsObserverTest {
 
         //Kuchen Loeschen Event
         KuchenLoeschenEventHandler addHandlerKuchenLoeschen = new KuchenLoeschenEventHandler();
-        KuchenLoeschenEventListener addListenerKuchenLoeschen = new AddListener(model);
+        KuchenLoeschenEventListener addListenerKuchenLoeschen = new Listener(model);
         addHandlerKuchenLoeschen.add(addListenerKuchenLoeschen);
         KuchenLoeschenEventListener infoListenerKuchenLoeschen = new InfoListener();
         addHandlerKuchenLoeschen.add(infoListenerKuchenLoeschen);
         //Hersteller Loeschen Event
         HerstellerLoeschenEventHandler addHandlerHerstellerLoeschen = new HerstellerLoeschenEventHandler();
-        HerstellerLoeschenEventListener addListenerHerstellerLoeschen = new AddListener(model);
+        HerstellerLoeschenEventListener addListenerHerstellerLoeschen = new Listener(model);
         addHandlerHerstellerLoeschen.add(addListenerHerstellerLoeschen);
         HerstellerLoeschenEventListener infoListenerHerstellerLoeschen = new InfoListener();
         addHandlerHerstellerLoeschen.add(infoListenerHerstellerLoeschen);
@@ -100,7 +100,7 @@ class KapazitaetsObserverTest {
 
         //Inspektionsdatum setzen Event
         InspektionsEventHandler addHandlerInspektion = new InspektionsEventHandler();
-        InspektionsEventListener addListenerInspektion = new AddListener(model);
+        InspektionsEventListener addListenerInspektion = new Listener(model);
         addHandlerInspektion.add(addListenerInspektion);
         InspektionsEventListener infoListenerInspektion = new InfoListener();
         addHandlerInspektion.add(infoListenerInspektion);
@@ -109,19 +109,19 @@ class KapazitaetsObserverTest {
 
         //Allergene anzeigen Event
         AllergeneAnzeigenEventHandler addHandlerAllergene = new AllergeneAnzeigenEventHandler();
-        AllergeneAnzeigenEventListener addListenerAllergene = new AddListener(model);
+        AllergeneAnzeigenEventListener addListenerAllergene = new Listener(model);
         addHandlerAllergene.add(addListenerAllergene);
         AllergeneAnzeigenEventListener infoListenerAllergene = new InfoListener();
         addHandlerAllergene.add(infoListenerAllergene);
         //Kuchen anzeigen Event
         KuchenAnzeigenEventHandler addHandlerKuchenAnzeigen = new KuchenAnzeigenEventHandler();
-        KuchenAnzeigenEventListener addListenerKuchenAnzeigen = new AddListener(model);
+        KuchenAnzeigenEventListener addListenerKuchenAnzeigen = new Listener(model);
         addHandlerKuchenAnzeigen.add(addListenerKuchenAnzeigen);
         KuchenAnzeigenEventListener infoListenerKuchenAnzeigen = new InfoListener();
         addHandlerKuchenAnzeigen.add(infoListenerKuchenAnzeigen);
         //Hersteller anzeigen Event
         HerstellerAnzeigenEventHandler addHandlerHerstellerAnzeigen = new HerstellerAnzeigenEventHandler();
-        HerstellerAnzeigenEventListener addListenerHerstellerAnzeigen = new AddListener(model);
+        HerstellerAnzeigenEventListener addListenerHerstellerAnzeigen = new Listener(model);
         addHandlerHerstellerAnzeigen.add(addListenerHerstellerAnzeigen);
         HerstellerAnzeigenEventListener infoListenerHerstellerAnzeigen = new InfoListener();
         addHandlerHerstellerAnzeigen.add(infoListenerHerstellerAnzeigen);
