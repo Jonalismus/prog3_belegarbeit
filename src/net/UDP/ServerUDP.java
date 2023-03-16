@@ -20,15 +20,9 @@ public class ServerUDP {
 
     private Modus aktuellerModus;
 
-    private DatagramSocket serverSocket;
-
     String antwortAnClient = "";
 
     DatagramPacket datagramPacket;
-    public ServerUDP() throws IOException {
-        this.serverSocket = new DatagramSocket(5000);
-        System.out.println("Server started.");
-    }
 
     public void setEinfuegeModus(EinfuegenModus einfuegeModus) {
         this.einfuegeModus = einfuegeModus;
@@ -46,23 +40,14 @@ public class ServerUDP {
         this.anzeigeModus = anzeigeModus;
     }
 
-    public void handleInput(String input, DatagramPacket packet) throws IOException {
+    public void handleInput(String input) {
         if (input.startsWith(":")) {
             switch (input) {
-                case ":c":
-                    aktuellerModus = einfuegeModus;
-                    break;
-                case ":r":
-                    aktuellerModus = anzeigeModus;
-                    break;
-                case ":d":
-                    aktuellerModus = loeschModus;
-                    break;
-                case ":u":
-                    aktuellerModus = aenderungsModus;
-                    break;
-                default:
-                    sendPacket("Ungueltiger Befehl. Bitte versuchen Sie es erneut", packet);
+                case ":c" -> aktuellerModus = einfuegeModus;
+                case ":r" -> aktuellerModus = anzeigeModus;
+                case ":d" -> aktuellerModus = loeschModus;
+                case ":u" -> aktuellerModus = aenderungsModus;
+                default -> antwortAnClient = "Ungueltiger Befehl. Bitte versuchen Sie es erneut";
             }
         } else {
             if(aktuellerModus == null){
@@ -85,8 +70,8 @@ public class ServerUDP {
                 datagramPacket = receivePacket;
 
                 String receivedMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                System.out.println("Nachricht empfangen: " + receivedMessage);
-                handleInput(receivedMessage, receivePacket);
+                antwortAnClient = "";
+                handleInput(receivedMessage);
 
                 InetAddress clientAddress = receivePacket.getAddress();
                 int clientPort = receivePacket.getPort();
@@ -99,18 +84,12 @@ public class ServerUDP {
         }
     }
 
-    public void sendPacket(String message, DatagramPacket receivePacket) throws IOException {
-        byte[] sendBuffer = message.getBytes();
-        DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, receivePacket.getAddress(), receivePacket.getPort());
-        serverSocket.send(sendPacket);
-    }
-
     public void sendHerstellerListToServer(List<Hersteller> output) throws IOException {
         StringBuilder result = new StringBuilder();
         for (Hersteller h : output) {
             result.append("[").append(h).append("] [Anzahl Kuchen: ").append(h.getAnzahlKuchen()).append("] || ");
         }
-        sendPacket(result.toString(), datagramPacket);
+        antwortAnClient = result.toString();
     }
 
     public void sendKuchenListToServer(List<Verkaufsobjekt> output) throws IOException {
@@ -118,7 +97,7 @@ public class ServerUDP {
         for (Verkaufsobjekt k : output) {
             result.append(k).append(" || ");
         }
-        sendPacket(result.toString(), datagramPacket);
+        antwortAnClient = result.toString();
     }
 
     public void sendAllergenListToServer(List<Allergen> output) throws IOException {
@@ -126,11 +105,11 @@ public class ServerUDP {
         for (Allergen a : output) {
             result.append(a.toString()).append(" || ");
         }
-        sendPacket(result.toString(), datagramPacket);
+        antwortAnClient = result.toString();
     }
 
     public void sendInfoToServer(String output) throws IOException {
-        sendPacket(output, datagramPacket);
+        antwortAnClient = output;
     }
 }
 

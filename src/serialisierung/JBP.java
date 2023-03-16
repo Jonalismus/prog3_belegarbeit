@@ -87,7 +87,7 @@ public class JBP {
 
     public Model deserialisierenJBP() throws IOException {
         Model model;
-        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("src\\serialisierung\\speicherstandJBP\\saveModelJBP.xml")))) {
+        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("src/serialisierung/speicherstandJBP/saveModelJBP.xml")))) {
             model = (Model) decoder.readObject();
         }
         return model;

@@ -32,13 +32,15 @@ import java.util.LinkedList;
 public class Server {
 
     public static void main(String[] args) throws IOException {
-        if (args.length < 1) {
-            System.err.println("Usage: java Server <TCP/UDP>");
+        if (args.length < 2) {
+            System.err.println("Usage: java Server <TCP/UDP> <kapazitaet>");
             System.exit(1);
         }
+
+        int kapazitaet = Integer.parseInt(args[1]);
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
-        Model model = new Model(30, verkaufsobjektLinkedList, herstellerLinkedList);
+        Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);
 
         if (args[0].equalsIgnoreCase("TCP")) {
             ServerTCP serverTCP = new ServerTCP();

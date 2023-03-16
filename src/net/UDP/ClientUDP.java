@@ -14,7 +14,6 @@ public class ClientUDP {
 
         try (DatagramSocket clientSocket = new DatagramSocket()) {
             Scanner scanner = new Scanner(System.in);
-
             while (true) {
                 String message = scanner.nextLine();
 
