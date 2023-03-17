@@ -13,7 +13,7 @@ public class JOS {
     }
 
     public void serialisierenJOS() throws IOException {
-        File folder = new File("src\\serialisierung\\speicherstandJOS\\");
+        File folder = new File("src/serialisierung/speicherstandJOS/");
         if (!folder.exists()) {
             if (!folder.mkdirs()) {
                 throw new IOException("Konnte Ordner nicht erstellen: " + folder);
@@ -27,7 +27,7 @@ public class JOS {
     }
 
     public Model deserialisierenJOS() throws IOException, ClassNotFoundException {
-        File file = new File("src\\serialisierung\\speicherstandJOS\\saveModel.ser");
+        File file = new File("src/serialisierung/speicherstandJOS/saveModel.ser");
         try (FileInputStream inputStream = new FileInputStream(file);
              ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
             return (Model) objectInputStream.readObject();

@@ -17,7 +17,7 @@ public class JBP {
     }
 
     public void serialisierenJBP() throws IOException {
-        File folder = new File("src\\serialisierung\\speicherstandJBP\\");
+        File folder = new File("src/serialisierung/speicherstandJBP/");
         if (!folder.exists()) {
             if (!folder.mkdirs()) {
                 throw new IOException("Konnte Ordner nicht erstellen: " + folder);
