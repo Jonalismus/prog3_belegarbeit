@@ -12,26 +12,40 @@ public class JOS {
         this.model = model;
     }
 
-    public void serialisierenJOS() throws IOException {
+    public void serialisierenJOS() {
         File folder = new File("src/serialisierung/speicherstandJOS/");
         if (!folder.exists()) {
             if (!folder.mkdirs()) {
-                throw new IOException("Konnte Ordner nicht erstellen: " + folder);
+                System.out.println("Konnte Ordner nicht erstellen: " + folder);
+                return;
             }
         }
         File file = new File(folder, "saveModel.ser");
         try (FileOutputStream outputStream = new FileOutputStream(file);
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
             objectOutputStream.writeObject(model);
+        } catch (IOException e) {
+            System.out.println("Ein I/O-Fehler ist aufgetreten: " + e.getMessage());
         }
     }
 
-    public Model deserialisierenJOS() throws IOException, ClassNotFoundException {
+
+    public Model deserialisierenJOS(){
         File file = new File("src/serialisierung/speicherstandJOS/saveModel.ser");
+        Model model = null;
+
         try (FileInputStream inputStream = new FileInputStream(file);
              ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
-            return (Model) objectInputStream.readObject();
+             model = (Model) objectInputStream.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("Die Datei ist nicht vorhanden: " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println("Ein I/O-Fehler ist aufgetreten: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Die Model-Klasse wurde nicht gefunden: " + e.getMessage());
         }
+
+        return model;
     }
 }
 

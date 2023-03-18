@@ -1,9 +1,9 @@
 package net.TCP;
 
-import cli.modus.*;
 import geschaeftslogik.Hersteller;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
+import view.cli.modus.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,6 +25,12 @@ public class ServerTCP {
 
     private String nachrichtAnClient = "";
 
+
+    private SerialisierungsModus serialisierungsModus;
+
+    public void setSerialisierungsModus(SerialisierungsModus serialisierungsModus) {
+        this.serialisierungsModus = serialisierungsModus;
+    }
 
     public void setEinfuegeModus(EinfuegenModus einfuegeModus) {
         this.einfuegeModus = einfuegeModus;
@@ -49,6 +55,7 @@ public class ServerTCP {
                 case ":r" -> aktuellerModus = anzeigeModus;
                 case ":d" -> aktuellerModus = loeschModus;
                 case ":u" -> aktuellerModus = aenderungsModus;
+                case ":p" -> aktuellerModus = serialisierungsModus;
                 default -> nachrichtAnClient = "Ungueltiger Befehl. Bitte versuchen Sie es erneut";
             }
         } else {
@@ -61,11 +68,11 @@ public class ServerTCP {
 
     public void start() {
         try (ServerSocket serverSocket = new ServerSocket(5000)) {
-            System.out.println("Server started.");
+            System.out.println("TCP Server gestartet");
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Client connected.");
+                System.out.println("Client hat sich verbunden.");
 
                 try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                      PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
@@ -77,11 +84,11 @@ public class ServerTCP {
                         nachrichtAnClient = "";
                     }
                 } catch (IOException e) {
-                    System.err.println("Error occurred: " + e.getMessage());
+                    System.err.println("Fehler aufgetreten: " + e.getMessage());
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error occurred: " + e.getMessage());
+            System.err.println("Fehler aufgetreten: " + e.getMessage());
         }
     }
 

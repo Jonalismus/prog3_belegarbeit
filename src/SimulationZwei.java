@@ -1,8 +1,8 @@
 import geschaeftslogik.Hersteller;
 import geschaeftslogik.Model;
-import observer.KapazitaetsObserver;
-import observer.KuchenEinfuegenObserver;
-import observer.KuchenLoeschenObserver;
+import view.observer.KapazitaetsObserver;
+import view.observer.KuchenEinfuegenObserver;
+import view.observer.KuchenLoeschenObserver;
 import simulation.simEins.KuchenEinfuegenThread;
 import simulation.simEins.KuchenLoeschenThread;
 import vertrag.Verkaufsobjekt;
@@ -32,8 +32,8 @@ public class SimulationZwei {
         KapazitaetsObserver kapazitaetsObserver = new KapazitaetsObserver(model);
         model.add(kapazitaetsObserver);
         for (int i = 0; i < anzahlThreads; i++) {
-            KuchenEinfuegenThread einfuegenThread = new KuchenEinfuegenThread(model, lock);
-            KuchenLoeschenThread loeschenThread = new KuchenLoeschenThread(model, lock);
+            KuchenEinfuegenThread einfuegenThread = new KuchenEinfuegenThread(model, lock, 42);
+            KuchenLoeschenThread loeschenThread = new KuchenLoeschenThread(model, lock, 42);
             einfuegenThread.setName("EinfuegenThread-" + (i+1));
             loeschenThread.setName("LoeschenThread-" + (i+1));
             einfuegenThread.start();

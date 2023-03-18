@@ -167,6 +167,7 @@ class ModelTest {
         assertFalse(model.verkaufsObjektEinfuegen(mockKremkuchen));
     }
 
+
     // Test zum pruefen ob ein Einfuegedatum vergeben wurde (Mockito-Test)
     @Test
     public void EinfuegedatumTestMitMock() {
@@ -487,7 +488,15 @@ class ModelTest {
         assertEquals(1, res.size());
     }
 
+    // Test die getKapazitaet Methode
+    @Test
+    void testGetKapazitaet() {
+        int aktuelleKapazitaet = model.getKapazitaet();
+        assertEquals(10, aktuelleKapazitaet, "Die Kapazitaet sollte dem erwarteten Wert entsprechen");
+    }
 }
+
+
 
 
 

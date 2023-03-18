@@ -1,6 +1,6 @@
 package geschaeftslogik;
 
-import observer.Subject;
+import view.observer.Subject;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 
@@ -79,7 +79,7 @@ public class Model extends Subject implements Serializable {
         for (Hersteller h : herstellerListe) {
             if (h.equals(verkaufsobjekt.getHersteller())) {
                 // Fachnummer vergeben
-                int fachnummer = verkaufobjektListe.size() + 1;
+                 int fachnummer = verkaufobjektListe.size() + 1;
                 verkaufsobjekt.setFachnummer(fachnummer);
                 // Einfuegedatum vergeben
                 LocalDateTime date = LocalDateTime.now();

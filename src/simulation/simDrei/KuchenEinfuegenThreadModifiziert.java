@@ -52,7 +52,7 @@ public class KuchenEinfuegenThreadModifiziert extends Thread {
                 model.verkaufsObjektEinfuegen(kuchen);
                 condition.signalAll();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             } finally {
                 lock.unlock();
             }

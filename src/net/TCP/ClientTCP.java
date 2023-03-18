@@ -15,7 +15,7 @@ public class ClientTCP {
                  BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                  PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
 
-                System.out.println("Connected to server.");
+                System.out.println("mit Server verbunden");
 
                 while (true) {
                     inputLine = scanner.nextLine();
@@ -27,10 +27,10 @@ public class ClientTCP {
                 }
 
             } catch (UnknownHostException e) {
-                System.err.println("Unknown host: " + "localhost");
+                System.err.println("Unbekannter host: " + "localhost");
                 System.exit(1);
             } catch (IOException e) {
-                System.err.println("Error occurred: " + e.getMessage());
+                System.err.println("Fehler aufgetreten: " + e.getMessage());
                 System.exit(1);
             }
         }

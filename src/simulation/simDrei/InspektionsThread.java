@@ -35,7 +35,7 @@ public class InspektionsThread extends Thread{
                     condition.await();
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             } finally {
                 lock.unlock();
             }

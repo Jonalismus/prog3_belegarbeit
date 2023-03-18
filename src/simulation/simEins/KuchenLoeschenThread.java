@@ -12,10 +12,10 @@ public class KuchenLoeschenThread extends Thread {
     private final Random random;
     private final Lock lock;
 
-    public KuchenLoeschenThread(Model model, Lock lock) {
+    public KuchenLoeschenThread(Model model, Lock lock, long seed) {
         this.model = model;
         this.lock = lock;
-        this.random = new Random();
+        this.random = new Random(seed);
     }
 
     @Override

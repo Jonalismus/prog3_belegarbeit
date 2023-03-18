@@ -1,4 +1,4 @@
-import gui.GUI;
+import view.gui.GUI;
 
 public class GUImain {
 

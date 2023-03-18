@@ -1,9 +1,9 @@
 package net.UDP;
 
-import cli.modus.*;
 import geschaeftslogik.Hersteller;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
+import view.cli.modus.*;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -23,6 +23,12 @@ public class ServerUDP {
     String antwortAnClient = "";
 
     DatagramPacket datagramPacket;
+
+    private SerialisierungsModus serialisierungsModus;
+
+    public void setSerialisierungsModus(SerialisierungsModus serialisierungsModus) {
+        this.serialisierungsModus = serialisierungsModus;
+    }
 
     public void setEinfuegeModus(EinfuegenModus einfuegeModus) {
         this.einfuegeModus = einfuegeModus;
@@ -47,6 +53,7 @@ public class ServerUDP {
                 case ":r" -> aktuellerModus = anzeigeModus;
                 case ":d" -> aktuellerModus = loeschModus;
                 case ":u" -> aktuellerModus = aenderungsModus;
+                case ":p" -> aktuellerModus = serialisierungsModus;
                 default -> antwortAnClient = "Ungueltiger Befehl. Bitte versuchen Sie es erneut";
             }
         } else {
@@ -84,7 +91,7 @@ public class ServerUDP {
         }
     }
 
-    public void sendHerstellerListToServer(List<Hersteller> output) throws IOException {
+    public void sendHerstellerListToServer(List<Hersteller> output){
         StringBuilder result = new StringBuilder();
         for (Hersteller h : output) {
             result.append("[").append(h).append("] [Anzahl Kuchen: ").append(h.getAnzahlKuchen()).append("] || ");
@@ -92,7 +99,7 @@ public class ServerUDP {
         antwortAnClient = result.toString();
     }
 
-    public void sendKuchenListToServer(List<Verkaufsobjekt> output) throws IOException {
+    public void sendKuchenListToServer(List<Verkaufsobjekt> output){
         StringBuilder result = new StringBuilder();
         for (Verkaufsobjekt k : output) {
             result.append(k).append(" || ");
@@ -100,7 +107,7 @@ public class ServerUDP {
         antwortAnClient = result.toString();
     }
 
-    public void sendAllergenListToServer(List<Allergen> output) throws IOException {
+    public void sendAllergenListToServer(List<Allergen> output){
         StringBuilder result = new StringBuilder();
         for (Allergen a : output) {
             result.append(a.toString()).append(" || ");
@@ -108,7 +115,7 @@ public class ServerUDP {
         antwortAnClient = result.toString();
     }
 
-    public void sendInfoToServer(String output) throws IOException {
+    public void sendInfoToServer(String output){
         antwortAnClient = output;
     }
 }

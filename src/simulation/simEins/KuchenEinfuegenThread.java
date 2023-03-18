@@ -27,10 +27,10 @@ public class KuchenEinfuegenThread extends Thread{
     private final List<Allergen> allergens = List.of(Erdnuss);
     private final Lock lock;
 
-    public KuchenEinfuegenThread(Model model, Lock lock) {
+    public KuchenEinfuegenThread(Model model, Lock lock, long seed) {
         this.model = model;
         this.lock = lock;
-        this.random = new Random();
+        this.random = new Random(seed);
     }
 
     @Override

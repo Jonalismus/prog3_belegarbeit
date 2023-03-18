@@ -1,25 +1,24 @@
-import cli.infrastructure.AllergeneAnzeigen.AllergeneAnzeigenEventHandler;
-import cli.infrastructure.AllergeneAnzeigen.AllergeneAnzeigenEventListener;
-import cli.infrastructure.HerstellerAnzeigen.HerstellerAnzeigenEventHandler;
-import cli.infrastructure.HerstellerAnzeigen.HerstellerAnzeigenEventListener;
-import cli.infrastructure.HerstellerEinfuegen.HerstellerEinfuegenEventHandler;
-import cli.infrastructure.HerstellerEinfuegen.HerstellerEinfuegenEventListener;
-import cli.infrastructure.HerstellerLoeschen.HerstellerLoeschenEventHandler;
-import cli.infrastructure.HerstellerLoeschen.HerstellerLoeschenEventListener;
-import cli.infrastructure.InspektionsdatumSetzen.InspektionsEventHandler;
-import cli.infrastructure.InspektionsdatumSetzen.InspektionsEventListener;
-import cli.infrastructure.KuchenAnzeigen.KuchenAnzeigenEventHandler;
-import cli.infrastructure.KuchenAnzeigen.KuchenAnzeigenEventListener;
-import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventHandler;
-import cli.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventListener;
-import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
-import cli.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
-import cli.listener.NetListenerTCP;
-import cli.listener.NetListenerUDP;
-import cli.modus.AenderungsModus;
-import cli.modus.AnzeigeModus;
-import cli.modus.EinfuegenModus;
-import cli.modus.LoeschModus;
+import control.infrastructure.AllergeneAnzeigen.AllergeneAnzeigenEventHandler;
+import control.infrastructure.AllergeneAnzeigen.AllergeneAnzeigenEventListener;
+import control.infrastructure.HerstellerAnzeigen.HerstellerAnzeigenEventHandler;
+import control.infrastructure.HerstellerAnzeigen.HerstellerAnzeigenEventListener;
+import control.infrastructure.HerstellerEinfuegen.HerstellerEinfuegenEventHandler;
+import control.infrastructure.HerstellerEinfuegen.HerstellerEinfuegenEventListener;
+import control.infrastructure.HerstellerLoeschen.HerstellerLoeschenEventHandler;
+import control.infrastructure.HerstellerLoeschen.HerstellerLoeschenEventListener;
+import control.infrastructure.InspektionsdatumSetzen.InspektionsEventHandler;
+import control.infrastructure.InspektionsdatumSetzen.InspektionsEventListener;
+import control.infrastructure.KuchenAnzeigen.KuchenAnzeigenEventHandler;
+import control.infrastructure.KuchenAnzeigen.KuchenAnzeigenEventListener;
+import control.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventHandler;
+import control.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventListener;
+import control.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
+import control.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
+import control.infrastructure.ModelSpeichern.ModelSpeichernEventHandler;
+import control.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
+import control.listener.NetListenerTCP;
+import control.listener.NetListenerUDP;
+import view.cli.modus.*;
 import geschaeftslogik.Hersteller;
 import geschaeftslogik.Model;
 import net.TCP.ServerTCP;
@@ -93,6 +92,14 @@ public class Server {
             AnzeigeModus anzeigeModus = new AnzeigeModus(addHandlerHerstellerAnzeigen, addHandlerKuchenAnzeigen, addHandlerAllergene);
             serverTCP.setAnzeigeModus(anzeigeModus);
 
+            ModelSpeichernEventHandler addHandlerModelSpeicherEventHandler = new ModelSpeichernEventHandler();
+            ModelSpeichernEventListener addListenerModelSpeichern = new NetListenerTCP(model, serverTCP);
+            addHandlerModelSpeicherEventHandler.add(addListenerModelSpeichern);
+
+            SerialisierungsModus serialisierungsModus = new SerialisierungsModus(addHandlerModelSpeicherEventHandler);
+
+            serverTCP.setSerialisierungsModus(serialisierungsModus);
+
             serverTCP.start();
         }
         else if (args[0].equalsIgnoreCase("UDP")) {
@@ -145,6 +152,14 @@ public class Server {
 
             AnzeigeModus anzeigeModus = new AnzeigeModus(addHandlerHerstellerAnzeigen, addHandlerKuchenAnzeigen, addHandlerAllergene);
             serverUDP.setAnzeigeModus(anzeigeModus);
+
+            ModelSpeichernEventHandler addHandlerModelSpeicherEventHandler = new ModelSpeichernEventHandler();
+            ModelSpeichernEventListener addListenerModelSpeichern = new NetListenerUDP(model, serverUDP);
+            addHandlerModelSpeicherEventHandler.add(addListenerModelSpeichern);
+
+            SerialisierungsModus serialisierungsModus = new SerialisierungsModus(addHandlerModelSpeicherEventHandler);
+
+            serverUDP.setSerialisierungsModus(serialisierungsModus);
 
             serverUDP.start();
         }

@@ -36,7 +36,7 @@ public class KuchenLoeschenThreadModifiziert extends Thread {
                     condition.signalAll();
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             } finally {
                 lock.unlock();
             }

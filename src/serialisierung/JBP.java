@@ -16,11 +16,11 @@ public class JBP {
         this.model = model;
     }
 
-    public void serialisierenJBP() throws IOException {
+    public void serialisierenJBP() {
         File folder = new File("src/serialisierung/speicherstandJBP/");
         if (!folder.exists()) {
             if (!folder.mkdirs()) {
-                throw new IOException("Konnte Ordner nicht erstellen: " + folder);
+                System.out.println("Konnte Ordner nicht erstellen: " + folder);
             }
         }
         File file = new File(folder, "saveModelJBP.xml");
@@ -85,10 +85,14 @@ public class JBP {
     }
 
 
-    public Model deserialisierenJBP() throws IOException {
-        Model model;
-        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("src/serialisierung/speicherstandJBP/saveModelJBP.xml")))) {
+    public Model deserialisierenJBP() {
+        Model model = null;
+        File file = new File("src/serialisierung/speicherstandJBP/saveModelJBP.xml");
+
+        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)))) {
             model = (Model) decoder.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("Die Datei ist nicht vorhanden: " + file.getAbsolutePath());
         }
         return model;
     }
