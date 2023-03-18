@@ -494,6 +494,19 @@ class ModelTest {
         int aktuelleKapazitaet = model.getKapazitaet();
         assertEquals(10, aktuelleKapazitaet, "Die Kapazitaet sollte dem erwarteten Wert entsprechen");
     }
+
+    //Test fuer die Kapselung
+    @Test
+    void testKapselung() {
+        Kremkuchen kremkuchen = new Kremkuchen(hersteller1, preis, naherwerte, haltbarkeit, allergens, sorte);
+        model.herstellerEinfuegen(hersteller1);
+        model.verkaufsObjektEinfuegen(kremkuchen);
+        model.verkaufsObjektEinfuegen(kremkuchen);
+        List<Verkaufsobjekt> resList = model.kuchenAbrufen("kuchen");
+        resList.clear();
+        List<Verkaufsobjekt> resList2 = model.kuchenAbrufen("kuchen");
+        assertEquals(2, resList2.size());
+    }
 }
 
 
