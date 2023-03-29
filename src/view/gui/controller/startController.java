@@ -13,7 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import control.singelton.SingletonModel;
 import vertrag.Verkaufsobjekt;
+import control.singelton.SingeltionSceneController;
 
 
 import java.net.URL;
@@ -31,22 +33,41 @@ public class startController implements Initializable {
 
     @FXML
     public void startFensterKapazitaet(ActionEvent actionEvent) {
-        try {
-            kapazitaet = Integer.parseInt(startTextField.getText());
-            LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
-            LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
-            Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/gui/scene/hauptfenster.fxml"));
-            loader.setControllerFactory(e -> new sceneController(model));
-            Parent root = loader.load();
-            Scene hauptfenster_scene = new Scene(root);
-            Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            app_stage.hide();
-            app_stage.setScene(hauptfenster_scene);
-            app_stage.show();
-        } catch (Exception e) {
-            startText.setText("Bitte geben sie eine Zahl an");
+        if(SingletonModel.getInstance().getModel() != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/view/gui/scene/hauptfenster.fxml"));
+                sceneController sceneCon = new sceneController(SingletonModel.getInstance().getModel());
+                SingeltionSceneController.getInstance().setSceneController(sceneCon);
+                loader.setControllerFactory(e -> sceneCon);
+                Parent root = loader.load();
+                Scene hauptfenster_scene = new Scene(root);
+                Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                app_stage.hide();
+                app_stage.setScene(hauptfenster_scene);
+                app_stage.show();
+            } catch (Exception e) {
+                startText.setText("Bitte geben sie eine Zahl an");
+            }
+        }
+        else {
+            try {
+                kapazitaet = Integer.parseInt(startTextField.getText());
+                LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+                LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+                Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/view/gui/scene/hauptfenster.fxml"));
+                loader.setControllerFactory(e -> new sceneController(model));
+                Parent root = loader.load();
+                Scene hauptfenster_scene = new Scene(root);
+                Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                app_stage.hide();
+                app_stage.setScene(hauptfenster_scene);
+                app_stage.show();
+            } catch (Exception e) {
+                startText.setText("Bitte geben sie eine Zahl an");
+            }
         }
     }
 

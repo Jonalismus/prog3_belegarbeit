@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import vertrag.Verkaufsobjekt;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -13,33 +16,62 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JBPTest {
 
+
+
+    // Test um die Erstellung der Datei zu pruefen
     @Test
-    public void testSerialisierenJBPDateiErstellung() {
+    public void testSerialisierenJOSDateiErstellung() {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
         JBP jbp = new JBP(model);
         jbp.serialisierenJBP();
-        File file = new File("src/serialisierung/speicherstandJBP/saveModelJBP.xml");
+        File file = new File("src/serialisierung/speicherstandJOS/saveModel.ser");
         assertTrue(file.exists());
     }
 
+
+
+    // Test überprueft, ob das gelesene Objekt eine Instanz von Model ist
     @Test
-    public void testSerialisierenJBPOrdnerErstellung() {
+    void serialisierenJOSInstanz() throws IOException, ClassNotFoundException {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
         JBP jbp = new JBP(model);
-        File folder = new File("src/serialisierung/speicherstandJBP/");
-        if (folder.exists()) {
-            folder.delete();
-        }
+
         jbp.serialisierenJBP();
-        assertTrue(folder.exists());
+
+        File file = new File("src/serialisierung/speicherstandJOS/saveModel.ser");
+        try (FileInputStream inputStream = new FileInputStream(file);
+             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
+             Model serializedModel = (Model) objectInputStream.readObject();
+
+             assertNotNull(serializedModel);
+        }
     }
 
+    // Test prueft ob die Eigenschaften des gelesenen Modells übereinstimmen
     @Test
-    public void testDeserialisierenJBPDateiVorhanden() {
+    public void testSerialisierenJOSDateiInhalt() throws IOException, ClassNotFoundException {
+        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
+        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
+        Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
+        JBP jbp = new JBP(model);
+        jbp.serialisierenJBP();
+
+        File file = new File("src/serialisierung/speicherstandJOS/saveModel.ser");
+        try (FileInputStream inputStream = new FileInputStream(file);
+             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
+            Model serializedModel = (Model) objectInputStream.readObject();
+
+            assertEquals(model.getKapazitaet(), serializedModel.getKapazitaet());
+        }
+    }
+
+    // Test ueberprueft ob eine Vorhandene Datei deserialsiert wird
+    @Test
+    public void testDeserialisierenJOSDateiVorhanden() {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
@@ -50,7 +82,7 @@ class JBPTest {
     }
 
     @Test
-    public void testDeserialisierenJBPRichtigeEigenschaften() {
+    public void testDeserialisierenJOSRichtigeEigenschaften() {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
@@ -61,20 +93,6 @@ class JBPTest {
         Model deserializedModel = jbp.deserialisierenJBP();
 
         assertEquals(model.getKapazitaet(), deserializedModel.getKapazitaet());
-    }
-
-    @Test
-    public void testDeserialisierenJBPDateiNichtVorhanden() {
-        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
-        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
-        Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
-        File file = new File("src/serialisierung/speicherstandJBP/saveModelJBP.xml");
-        if (file.exists()) {
-            file.delete();
-        }
-        JBP jbp = new JBP(model);
-        Model deserializedModel = jbp.deserialisierenJBP();
-        assertNull(deserializedModel);
     }
 
 

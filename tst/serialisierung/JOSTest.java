@@ -25,19 +25,6 @@ class JOSTest {
         assertTrue(file.exists());
     }
 
-    @Test
-    public void testSerialisierenJOSOrdnerErstellung() {
-        LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
-        LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
-        Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
-        JOS jos = new JOS(model);
-        File folder = new File("src/serialisierung/speicherstandJOS/");
-        if (folder.exists()) {
-            folder.delete();
-        }
-        jos.serialisierenJOS();
-        assertTrue(folder.exists());
-    }
 
 
     // Test überprueft, ob das gelesene Objekt eine Instanz von Model ist

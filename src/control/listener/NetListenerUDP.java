@@ -22,7 +22,7 @@ import geschaeftslogik.*;
 import net.UDP.ServerUDP;
 import serialisierung.JBP;
 import serialisierung.JOS;
-import serialisierung.SingletonModel;
+import control.singelton.SingletonModel;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 

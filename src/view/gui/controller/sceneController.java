@@ -258,6 +258,10 @@ public class sceneController implements Initializable {
 
     }
 
+    public void tableUpdateausloesen(){
+        tableUpdate();
+    }
+
     private void tableUpdate() {
         kuchenTable.getItems().clear();
         List<Verkaufsobjekt> kuchen = model.kuchenAbrufen("kuchen");

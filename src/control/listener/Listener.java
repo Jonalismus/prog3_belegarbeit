@@ -21,7 +21,7 @@ import control.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 import geschaeftslogik.*;
 import serialisierung.JBP;
 import serialisierung.JOS;
-import serialisierung.SingletonModel;
+import control.singelton.SingletonModel;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 

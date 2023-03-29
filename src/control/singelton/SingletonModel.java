@@ -1,4 +1,4 @@
-package serialisierung;
+package control.singelton;
 
 import geschaeftslogik.Model;
 

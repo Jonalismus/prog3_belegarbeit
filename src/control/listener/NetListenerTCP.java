@@ -22,7 +22,7 @@ import geschaeftslogik.*;
 import net.TCP.ServerTCP;
 import serialisierung.JBP;
 import serialisierung.JOS;
-import serialisierung.SingletonModel;
+import control.singelton.SingletonModel;
 import vertrag.Allergen;
 import vertrag.Verkaufsobjekt;
 import java.math.BigDecimal;

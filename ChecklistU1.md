@@ -7,23 +7,23 @@ Zulässige Quellen sind suchmaschinen-indizierte Internetseiten. Werden mehr als
 ##Bewertung
 1 Punkt für die Erfüllung des Pflichtteils
 ###Pflichtteil
-- [ ] Quellen angegeben
-- [ ] zip Archiv
-- [ ] IntelliJ-Projekt (kein Gradle, Maven o.ä.)
-- [ ] JUnit5 und Mockito als Testframeworks (soweit verwendet)
-- [ ] keine weiteren Bibliotheken außer JavaFX
-- [ ] keine Umlaute, Sonderzeichen, etc. in Datei- und Pfadnamen
-- [ ] kompilierbar
-- [ ] Trennung zwischen Test- und Produktiv-Code
-- [ ] main-Methoden nur im default package
-- [ ] ausführbar
-- [ ] CRUD für eine Kuchensorte
-- [ ] mindestens ein Test
+- [x] Quellen angegeben
+- [x] zip Archiv
+- [x] IntelliJ-Projekt (kein Gradle, Maven o.ä.)
+- [x] JUnit5 und Mockito als Testframeworks (soweit verwendet)
+- [x] keine weiteren Bibliotheken außer JavaFX
+- [x] keine Umlaute, Sonderzeichen, etc. in Datei- und Pfadnamen
+- [x] kompilierbar
+- [x] Trennung zwischen Test- und Produktiv-Code
+- [x] main-Methoden nur im default package
+- [x] ausführbar
+- [x] CRUD für eine Kuchensorte
+- [x] mindestens ein Test
 ###empfohlene Realisierungen als Vorbereitung auf den Beleg
 werden überprüft (aber nicht bewertet), wenn hier in der vorgegebenen Reihenfolge als bearbeitet angegeben
-- [ ] mindestens je ein Test für CRUD
-- [ ] mindestens zwei Tests mit Mockito
-- [ ] Einfügen der Kuchen vollständig getestet (mindestens 8 Testfälle)
-- [ ] Unterstützung von mindestens zwei Kuchensorten
-- [ ] vollständige GL
+- [x] mindestens je ein Test für CRUD
+- [x] mindestens zwei Tests mit Mockito
+- [x] Einfügen der Kuchen vollständig getestet (mindestens 8 Testfälle)
+- [x] Unterstützung von mindestens zwei Kuchensorten
+- [x] vollständige GL
 - [ ] keine Code-Duplikate
