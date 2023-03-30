@@ -1,6 +1,8 @@
 package serialisierung;
 
 import geschaeftslogik.Model;
+import view.observer.AllergenObserver;
+import view.observer.KapazitaetsObserver;
 
 import java.io.*;
 
@@ -37,6 +39,10 @@ public class JOS {
         try (FileInputStream inputStream = new FileInputStream(file);
              ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
              model = (Model) objectInputStream.readObject();
+             AllergenObserver allergenObserver = new AllergenObserver(model);
+             model.add(allergenObserver);
+             KapazitaetsObserver kapazitaetsObserver = new KapazitaetsObserver(model);
+             model.add(kapazitaetsObserver);
         } catch (FileNotFoundException e) {
             System.out.println("Die Datei ist nicht vorhanden: " + file.getAbsolutePath());
         } catch (IOException e) {

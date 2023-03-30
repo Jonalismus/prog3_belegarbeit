@@ -20,7 +20,7 @@ class JBPTest {
 
     // Test um die Erstellung der Datei zu pruefen
     @Test
-    public void testSerialisierenJOSDateiErstellung() {
+    public void testSerialisierenJBPDateiErstellung() {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
@@ -34,7 +34,7 @@ class JBPTest {
 
     // Test überprueft, ob das gelesene Objekt eine Instanz von Model ist
     @Test
-    void serialisierenJOSInstanz() throws IOException, ClassNotFoundException {
+    void serialisierenJBPInstanz() throws IOException, ClassNotFoundException {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
@@ -53,7 +53,7 @@ class JBPTest {
 
     // Test prueft ob die Eigenschaften des gelesenen Modells übereinstimmen
     @Test
-    public void testSerialisierenJOSDateiInhalt() throws IOException, ClassNotFoundException {
+    public void testSerialisierenJBPDateiInhalt() throws IOException, ClassNotFoundException {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
@@ -71,7 +71,7 @@ class JBPTest {
 
     // Test ueberprueft ob eine Vorhandene Datei deserialsiert wird
     @Test
-    public void testDeserialisierenJOSDateiVorhanden() {
+    public void testDeserialisierenJBPDateiVorhanden() {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
@@ -82,7 +82,7 @@ class JBPTest {
     }
 
     @Test
-    public void testDeserialisierenJOSRichtigeEigenschaften() {
+    public void testDeserialisierenJBPRichtigeEigenschaften() {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         Model model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);

@@ -15,7 +15,6 @@ import control.infrastructure.KuchenEinfuegen.KuchenEinfuegenEventListener;
 import control.infrastructure.KuchenLoeschen.KuchenLoeschenEventHandler;
 import control.infrastructure.KuchenLoeschen.KuchenLoeschenEventListener;
 import control.infrastructure.ModelSpeichern.ModelSpeichernEventHandler;
-import control.infrastructure.ModelSpeichern.ModelSpeichernEventListener;
 import control.listener.GUIundCLIListener;
 import control.listener.InfoListener;
 import control.listener.Listener;
@@ -42,6 +41,7 @@ public class CLIundGUI {
         }
 
         if (kapazitaet >= 0) {
+            System.out.println("Die Kapazitaet wurde beim starten der Anwendung uebergeben. Das Eingabefeld der GUI verliert seine Wirkung und eine neue Kapazitaet kann nicht gesetzt werden");
             Model model = new Model(kapazitaet, verkaufsobjektLinkedList, herstellerLinkedList);
             //Observer beim Model registrieren
             KapazitaetsObserver kapazitaetsObserver = new KapazitaetsObserver(model);
@@ -126,12 +126,8 @@ public class CLIundGUI {
 
             AnzeigeModus anzeigeModus = new AnzeigeModus(addHandlerHerstellerAnzeigen, addHandlerKuchenAnzeigen, addHandlerAllergene);
 
-            //Model speichern
+            //Model speichern und laden Deaktiviert
             ModelSpeichernEventHandler addHandlerModelSpeichern = new ModelSpeichernEventHandler();
-            ModelSpeichernEventListener addListenerModelSpeichern = new Listener(model);
-            addHandlerModelSpeichern.add(addListenerModelSpeichern);
-            ModelSpeichernEventListener infoListenerModelSpeichern = new InfoListener();
-            addHandlerModelSpeichern.add(infoListenerModelSpeichern);
 
             SerialisierungsModus serialisierungsModus = new SerialisierungsModus(addHandlerModelSpeichern);
 

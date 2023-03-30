@@ -1,6 +1,8 @@
 package serialisierung;
 
 import geschaeftslogik.*;
+import view.observer.AllergenObserver;
+import view.observer.KapazitaetsObserver;
 
 import java.beans.*;
 import java.io.*;
@@ -91,6 +93,10 @@ public class JBP {
 
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)))) {
             model = (Model) decoder.readObject();
+            AllergenObserver allergenObserver = new AllergenObserver(model);
+            model.add(allergenObserver);
+            KapazitaetsObserver kapazitaetsObserver = new KapazitaetsObserver(model);
+            model.add(kapazitaetsObserver);
         } catch (FileNotFoundException e) {
             System.out.println("Die Datei ist nicht vorhanden: " + file.getAbsolutePath());
         }
