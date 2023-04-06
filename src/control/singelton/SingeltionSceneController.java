@@ -2,7 +2,7 @@ package control.singelton;
 
 import view.gui.controller.sceneController;
 
-
+//https://www.baeldung.com/java-singleton
 public class SingeltionSceneController {
 
     private static SingeltionSceneController instance;

@@ -40,7 +40,7 @@ class CLITest {
         LinkedList<Hersteller> herstellerLinkedList = new LinkedList<>();
         LinkedList<Verkaufsobjekt> verkaufsobjektLinkedList = new LinkedList<>();
         model = new Model(10, verkaufsobjektLinkedList, herstellerLinkedList);
-        //Kuchen Einfuegen Event ohne einhängen der Handler und Listener
+        //Kuchen Einfuegen Event ohne einhaengen der Handler und Listener
         KuchenEinfuegenEventHandler addHandlerKuchen = new KuchenEinfuegenEventHandler();
         //Hersteller Einfuegen Event
         HerstellerEinfuegenEventHandler addHandlerHersteller = new HerstellerEinfuegenEventHandler();
@@ -130,7 +130,6 @@ class CLITest {
         ByteArrayInputStream inputStream2 = new ByteArrayInputStream("Hersteller Test\n".getBytes());
         SequenceInputStream sequenceInputStream = new SequenceInputStream(inputStream1, inputStream2);
 
-        // Setzt die beiden Eingaben ins System (:c und anschließend Hersteller)
         System.setIn(sequenceInputStream);
 
         try {
@@ -147,7 +146,7 @@ class CLITest {
         // Herstellerliste abrufen
         Hersteller hersteller = model.getHerstellerListe().get(0);
 
-        // Ueberprüfen, ob der Hersteller korrekt eingefügt wurde
+        // Ueberpruefen, ob der Hersteller korrekt eingefügt wurde
         assertEquals("Hersteller Test", hersteller.getName());
     }
 
@@ -156,15 +155,12 @@ class CLITest {
     */
     @Test
     void testHerstellerAnzeigen() {
-        // Herstellerliste initialisieren
         Hersteller hersteller = new Hersteller("Hersteller1");
         model.getHerstellerListe().add(hersteller);
 
-        // Umlenken der System.out-Ausgabe auf einen ByteArrayOutputStream
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        // Herstellerliste über das CLI anzeigen
         ByteArrayInputStream inputStream1 = new ByteArrayInputStream(":r\n".getBytes());
         ByteArrayInputStream inputStream2 = new ByteArrayInputStream("Hersteller\n".getBytes());
         SequenceInputStream sequenceInputStream = new SequenceInputStream(inputStream1, inputStream2);
@@ -181,10 +177,8 @@ class CLITest {
              */
         }
 
-        // Wiederherstellen der Standard-Ausgabe
         System.setOut(System.out);
 
-        // Überprüfen der Ausgabe
         String expectedOutput = "[Hersteller1] [Anzahl Kuchen: 0]";
         assertEquals(expectedOutput, outputStream.toString().trim());
     }

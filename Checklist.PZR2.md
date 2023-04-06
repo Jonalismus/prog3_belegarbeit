@@ -18,7 +18,7 @@ Ergänzende Anmerkungen bitte immer _kursiv_ setzen. Andere Änderungen sind nic
 - [x] **Testqualität** (7)
 - [x] **Testabdeckung GL** (7) _Abdeckung in Prozent angeben_ 
 - _100%_
-- [ ] **Testabdeckung Rest** (6)
+- [x] **Testabdeckung Rest** (6)
   - [x] Einfügen von Herstellern über das CLI _HauptCLI, EinfuegenModus_
   - [x] Anzeigen von Herstellern über das CLI _HauptCLI, AnzeigenModus_
   - [x] ein Beobachter bzw. dessen alternative Implementierung _Observer, Subject, KapazitaetsObserver_
@@ -26,7 +26,7 @@ Ergänzende Anmerkungen bitte immer _kursiv_ setzen. Andere Änderungen sind nic
   - [x] Speichern via JOS oder JBP _JBP, JOS_
   - [x] Laden via JOS oder JBP _JBP, JOS_
 - [x] **Mockito richtig verwendet** (4)
-- [x] Spy- / Verhaltens-Tests (3)
+- [ ] Spy- / Verhaltens-Tests (3)
 - [x] keine unbeabsichtigt fehlschlagenden Test (1)
 
 ## Fehlerfreiheit (10)

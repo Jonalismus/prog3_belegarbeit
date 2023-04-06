@@ -20,7 +20,7 @@ public class AllergenObserver implements Observer {
         if (subject instanceof Model) {
             List<Allergen> aktuelleAllergene = this.model.allergeneAbrufen(true);
             if (!aktuelleAllergene.equals(letzteAllergene)) {
-                System.out.println("Es gab Änderungen an den Allergenen im Automaten:");
+                System.out.println("Es gab Aenderungen an den Allergenen im Automaten:");
                 System.out.println("Alte Allergene: " + letzteAllergene);
                 System.out.println("Neue Allergene: " + aktuelleAllergene);
                 letzteAllergene = aktuelleAllergene;

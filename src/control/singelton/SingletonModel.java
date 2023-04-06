@@ -2,7 +2,7 @@ package control.singelton;
 
 import geschaeftslogik.Model;
 
-
+//https://www.baeldung.com/java-singleton
 //Klasse damit alle Events nach der deserialsierung auf das aktuallisierte Model zugreifen
 public class SingletonModel {
     private static SingletonModel instance;
